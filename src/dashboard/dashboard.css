@@ -1,0 +1,41 @@
+nav, .dashboard-page {
+    padding: 20px;
+  }
+  
+  nav {
+    background-color: lightgrey;
+  }
+  
+  nav h3 {
+    padding: 20px;
+  }
+  
+  nav button {
+    padding: 5px;
+  }
+  
+  .dashboard-page h1 {
+    padding: 20px;
+    font-size: 20px;
+  }
+  
+  .list-preview {
+    margin: 20px;
+    padding: 20px;
+    border: 2px solid darkgray;
+  }
+  
+  .list-preview h3 {
+    padding: 20px;
+    font-size: 20px;
+  }
+  
+  .list-preview ul {
+    padding: 20px;
+  }
+  
+  .list-preview button {
+    padding: 5px;
+    margin: 10px;
+  }
+  

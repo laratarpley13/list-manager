@@ -1,0 +1,29 @@
+nav, main {
+    padding: 20px;
+  }
+  
+  nav {
+    background-color: lightgrey;
+  }
+  
+  nav h3 {
+    padding: 20px;
+  }
+  
+  nav button {
+    padding: 5px;
+  }
+  
+  .landing-page h1 {
+    padding: 20px;
+    font-size: 20px;
+  }
+  
+  .landing-page p {
+    padding: 20px;
+  }
+  
+  .landing-page button {
+    padding: 5px;
+    margin: 20px;
+  }
