@@ -1,51 +1,40 @@
-import React from 'react'
+import React, { Component } from 'react'
+import Context from '../Context'
 import './dashboard.css'
 
-export default function Dashboard() {
-    return(
-        <div>
-            <nav>
-                <h3>List Manager</h3>
-                <button>Add List</button>
-                <button>Log Out</button>
-            </nav>
-            <section className='dashboard-page'>
-                <h1>Dashboard</h1>
-                <div className="lists">
-                    <div className="list-preview">
-                        <h3>Example 1</h3>
-                        <p>Last Edited: 01/01/2021</p>
-                        <p>This is an example description</p>
-                        <ul>
-                            <li>Item 1</li>
-                            <li>Item 2</li>
-                            <li>Item 3</li>
-                            <li>Item 4</li>
-                            <li>Item 5</li>
-                            <li>Item 6</li>
-                            <li>Item 7</li>
-                        </ul>
-                        <button>View</button>
-                        <button>Share</button>
+export default class Dashboard extends Component {
+    static contextType = Context;
+    render() {
+        const { lists, items } = this.context;
+        console.log(lists); //debugging
+        console.log(items); //debugging
+        return(
+            <div>
+                <nav>
+                    <h3>List Manager</h3>
+                    <button onClick={() => this.props.history.push('/create-list')}>Add List</button>
+                    <button onClick={() => this.props.history.push('/')}>Log Out</button>
+                </nav>
+                <section className='dashboard-page'>
+                    <h1>Dashboard</h1>
+                    <div className="lists">
+                        {lists.map((list) => 
+                            <div key={list.id} className="list-preview">
+                                <h3>{list.name}</h3>
+                                <p>Last Edited: {list.date}</p>
+                                <p>{list.description}</p>
+                                <ul>
+                                    {items.filter(item => item.listId === list.id).map(filteredItem => (
+                                        <li key={filteredItem.id}>{filteredItem.name}</li>
+                                    ))}
+                                </ul>
+                                <button onClick={() => this.props.history.push(`/list/${list.id}`)}>View</button>
+                                <button>Share</button>
+                            </div>
+                        )}
                     </div>
-                    <div className="list-preview">
-                        <h3>Example 2</h3>
-                        <p>Last Edited: 02/02/2021</p>
-                        <p>This is an example description</p>
-                        <ul>
-                            <li>Item 1</li>
-                            <li>Item 2</li>
-                            <li>Item 3</li>
-                            <li>Item 4</li>
-                            <li>Item 5</li>
-                            <li>Item 6</li>
-                            <li>Item 7</li>
-                        </ul>
-                        <button>View</button>
-                        <button>Share</button>
-                    </div>
-                </div>
-            </section>
-        </div>
-    )
+                </section>
+            </div>
+        )
+    }
 }
