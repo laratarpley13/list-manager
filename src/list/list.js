@@ -8,10 +8,8 @@ export default class List extends Component {
         const { lists, items } = this.context
 
         const targetListId = parseInt(this.props.match.params.listId);
-        console.log(targetListId) //debugging
         let targetList = lists.filter(list => list.id === targetListId);
         targetList = targetList[0];
-        console.log(targetList.name) //debugging
 
         return (
             <div>
@@ -24,13 +22,13 @@ export default class List extends Component {
                     <h1>{targetList.name}</h1>
                     <p>Date Created: {targetList.date}</p>
                     <p>{targetList.description}</p>
-                    <form className='add-item'>
+                    <form className='add-item' onSubmit={e => {this.props.handleItemAdd(e, targetListId)}}>
                         <h3>Add Item</h3>
                         <label htmlFor="name">Name:</label>
-                        <input type="text" id="name" name="name" />
+                        <input type="text" id="name" name="name" required />
                         <br />
                         <label htmlFor="description">Description:</label>
-                        <input type="text" id="description" name="description" />
+                        <input type="text" id="description" name="description" required />
                         <br />
                         <button type="submit">Submit</button>
                     </form>

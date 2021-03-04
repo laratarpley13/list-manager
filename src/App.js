@@ -102,7 +102,47 @@ class App extends Component {
     let dateAdded = (today.getMonth()+1) + '/' + today.getDate() + '/' + today.getFullYear();
     console.log(dateAdded) //debugging
     //create new id
+    let last = this.state.lists[this.state.lists.length - 1];
+    const newListId = last.id + 1;
+    console.log(newListId); //debugging
     
+    const list = {
+      id: newListId,
+      name: newListName,
+      description: newListDescription,
+      date: dateAdded,
+    }
+
+    this.setState(
+      {
+        lists: [...this.state.lists, list]
+      }
+    )
+
+    console.log(list); //debugging
+  }
+
+  handleItemAdd = (e, newFolderId) => {
+    e.preventDefault();
+    console.log(newFolderId); //debugging
+    const newItemName = e.target.name.value.trim();
+    const newItemDescription = e.target.description.value.trim();
+    //create new item id
+    let last = this.state.items[this.state.items.length - 1];
+    const newItemId = last.id + 1;
+
+    const item = {
+      id: newItemId,
+      name: newItemName,
+      description: newItemDescription,
+      folderId: newFolderId
+    }
+
+    console.log(item); //debugging
+
+    this.setState({
+      items: [...this.state.items, item]
+    })
   }
 
   render() {
@@ -155,6 +195,7 @@ class App extends Component {
             render={(props) => 
               <List 
                 {...props}
+                handleItemAdd={this.handleItemAdd}
               />
             } 
           />
