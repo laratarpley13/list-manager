@@ -38,4 +38,8 @@ nav, .dashboard-page {
     padding: 5px;
     margin: 10px;
   }
+
+  .check-item {
+    text-decoration: line-through;
+  }
   

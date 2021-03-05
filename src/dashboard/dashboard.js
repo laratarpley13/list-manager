@@ -24,7 +24,7 @@ export default class Dashboard extends Component {
                                 <p>{list.description}</p>
                                 <ul>
                                     {items.filter(item => item.listId === list.id).map(filteredItem => (
-                                        <li key={filteredItem.id}>{filteredItem.name}</li>
+                                        <li key={filteredItem.id} className={filteredItem.active ? 'check-item': null}>{filteredItem.name}</li>
                                     ))}
                                 </ul>
                                 <button onClick={() => this.props.history.push(`/list/${list.id}`)}>View</button>

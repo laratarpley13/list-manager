@@ -100,6 +100,23 @@ class App extends Component {
     ],
   }
 
+  toggleClass = (selectedItem) => {
+    const currentState = selectedItem.active;
+
+    const toggleSelectedItem = {
+      id: selectedItem.id,
+      name: selectedItem.name,
+      description: selectedItem.description,
+      listId: selectedItem.listId,
+      active: !currentState
+    }
+
+    this.setState({
+      items: this.state.items.map(item => 
+        (item.id !== selectedItem.id) ? item : toggleSelectedItem)
+    })
+  }
+
   handleListAdd = (e) => {
     e.preventDefault();
     const newListName = e.target.name.value.trim();
@@ -266,6 +283,7 @@ class App extends Component {
                 handleItemAdd={this.handleItemAdd}
                 handleDeleteList={this.handleDeleteList}
                 handleItemDelete={this.handleItemDelete}
+                toggleClass={this.toggleClass}
               />
             } 
           />

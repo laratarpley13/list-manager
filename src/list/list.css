@@ -46,6 +46,10 @@ nav, .list-info {
   li * {
     margin: 5px;
   }
+
+  .check-item {
+    text-decoration: line-through;
+  }
   
   .list-options button {
     margin: 10px;
