@@ -49,6 +49,7 @@ nav, .list-info {
 
   .check-item {
     text-decoration: line-through;
+    color: red;
   }
   
   .list-options button {

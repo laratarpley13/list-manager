@@ -41,5 +41,6 @@ nav, .dashboard-page {
 
   .check-item {
     text-decoration: line-through;
+    color: red;
   }
   

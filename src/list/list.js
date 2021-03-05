@@ -40,7 +40,10 @@ export default class List extends Component {
                             <li key={filteredItem.id}>
                                 <h4 className={filteredItem.active ? 'check-item': null}>{filteredItem.name}</h4>
                                 <p>{filteredItem.description}</p>
-                                <button onClick={() => this.props.toggleClass(filteredItem)}>Complete</button>
+                                {filteredItem.active
+                                    ? <button onClick={() => this.props.toggleClass(filteredItem)}>Un-Check</button>
+                                    : <button onClick={() => this.props.toggleClass(filteredItem)}>Check-Off</button>
+                                }
                                 <button onClick={() => this.props.history.push(`/edit-item/${filteredItem.id}`)}>Edit</button>
                                 <button onClick={() => this.props.handleItemDelete(filteredItem.id)}>Delete</button>
                             </li>    
