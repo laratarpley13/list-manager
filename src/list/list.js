@@ -48,7 +48,10 @@ export default class List extends Component {
                     </ul>
                     <div className="list-options">
                         <button onClick={() => this.props.history.push(`/edit-list/${targetListId}`)}>Edit List</button>
-                        <button>Delete List</button>
+                        <button onClick={() => {
+                            this.props.history.push(`/dashboard`);
+                            this.props.handleDeleteList(targetListId);
+                        }}>Delete List</button>
                     </div>
                 </section>
             </div>

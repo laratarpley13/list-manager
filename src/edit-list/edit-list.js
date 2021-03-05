@@ -9,7 +9,6 @@ export default class EditList extends Component {
         const targetListId = parseInt(this.props.match.params.listId);
         let targetList = lists.filter(list => list.id === targetListId);
         targetList = targetList[0];
-        console.log(targetList); //debugging
 
         return (
             <div>

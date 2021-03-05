@@ -169,6 +169,17 @@ class App extends Component {
     })
   }
 
+  handleDeleteList = (targetListId) => {
+    console.log(targetListId); //debugging
+    const newLists = this.state.lists.filter(list => 
+      list.id !== targetListId
+    )
+    console.log(newLists); //debugging
+    this.setState({
+      lists: newLists
+    })
+  }
+
   render() {
     const value = {
       lists: this.state.lists,
@@ -220,6 +231,7 @@ class App extends Component {
               <List 
                 {...props}
                 handleItemAdd={this.handleItemAdd}
+                handleDeleteList={this.handleDeleteList}
               />
             } 
           />
