@@ -38,55 +38,64 @@ class App extends Component {
         id: 1,
         name: 'Item  1',
         description: 'test item 1',
-        listId: 1
+        listId: 1,
+        active: false
       },
       {
         id: 2,
         name: 'Item  2',
         description: 'test item 2',
-        listId: 1
+        listId: 1,
+        active: false
       },
       {
         id: 3,
         name: 'Item  3',
         description: 'test item 3',
-        listId: 1
+        listId: 1,
+        active: false
       },
       {
         id: 4,
         name: 'Item  4',
         description: 'test item 4',
-        listId: 2
+        listId: 2,
+        active: false
       },
       {
         id: 5,
         name: 'Item  5',
         description: 'test item ',
-        listId: 2
+        listId: 2,
+        active: false
       },
       {
         id: 6,
         name: 'Item  6',
         description: 'test item 6',
-        listId: 2
+        listId: 2,
+        active: false
       },
       {
         id: 7,
         name: 'Item  7',
         description: 'test item 7',
-        listId: 3
+        listId: 3,
+        active: false
       },
       {
         id: 8,
         name: 'Item  8',
         description: 'test item 8',
-        listId: 3
+        listId: 3,
+        active: false
       },
       {
         id: 9,
         name: 'Item  9',
         description: 'test item 9',
-        listId: 3
+        listId: 3,
+        active: false
       }
     ],
   }
@@ -129,7 +138,8 @@ class App extends Component {
       id: newItemId,
       name: newItemName,
       description: newItemDescription,
-      listId: newListId
+      listId: newListId,
+      active: false
     }
 
     this.setState({
@@ -163,8 +173,15 @@ class App extends Component {
       list.id !== targetListId
     )
 
+    const newItems = this.state.items.filter(item => 
+      item.listId !== targetListId
+    )
+
     this.setState({
       lists: newLists
+    })
+    this.setState({
+      items: newItems
     })
   }
 
@@ -187,6 +204,7 @@ class App extends Component {
       name: editedName,
       description: editedDescription,
       listId: targetItem.listId,
+      active: false
     }
 
     this.setState({
