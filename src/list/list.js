@@ -22,7 +22,10 @@ export default class List extends Component {
                     <h1>{targetList.name}</h1>
                     <p>Date Created: {targetList.date}</p>
                     <p>{targetList.description}</p>
-                    <form className='add-item' onSubmit={e => {this.props.handleItemAdd(e, targetListId)}}>
+                    <form className='add-item' onSubmit={e => {
+                        this.props.handleItemAdd(e, targetListId);
+                        e.target.reset();    
+                    }}>
                         <h3>Add Item</h3>
                         <label htmlFor="name">Name:</label>
                         <input type="text" id="name" name="name" required />

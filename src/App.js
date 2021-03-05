@@ -122,9 +122,9 @@ class App extends Component {
     console.log(list); //debugging
   }
 
-  handleItemAdd = (e, newFolderId) => {
+  handleItemAdd = (e, newListId) => {
     e.preventDefault();
-    console.log(newFolderId); //debugging
+    console.log(newListId); //debugging
     const newItemName = e.target.name.value.trim();
     const newItemDescription = e.target.description.value.trim();
     //create new item id
@@ -135,7 +135,7 @@ class App extends Component {
       id: newItemId,
       name: newItemName,
       description: newItemDescription,
-      folderId: newFolderId
+      listId: newListId
     }
 
     console.log(item); //debugging
