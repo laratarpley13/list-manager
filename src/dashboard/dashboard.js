@@ -6,8 +6,7 @@ export default class Dashboard extends Component {
     static contextType = Context;
     render() {
         const { lists, items } = this.context;
-        console.log(lists); //debugging
-        console.log(items); //debugging
+
         return(
             <div>
                 <nav>

@@ -94,17 +94,13 @@ class App extends Component {
   handleListAdd = (e) => {
     e.preventDefault();
     const newListName = e.target.name.value.trim();
-    console.log(newListName); //debugging
     const newListDescription = e.target.description.value.trim();
-    console.log(newListDescription); //debugging
     //create date added
     let today = new Date();
     let dateAdded = (today.getMonth()+1) + '/' + today.getDate() + '/' + today.getFullYear();
-    console.log(dateAdded) //debugging
     //create new id
     let last = this.state.lists[this.state.lists.length - 1];
     const newListId = last.id + 1;
-    console.log(newListId); //debugging
     
     const list = {
       id: newListId,
@@ -118,13 +114,11 @@ class App extends Component {
         lists: [...this.state.lists, list]
       }
     )
-
-    console.log(list); //debugging
   }
 
   handleItemAdd = (e, newListId) => {
     e.preventDefault();
-    console.log(newListId); //debugging
+  
     const newItemName = e.target.name.value.trim();
     const newItemDescription = e.target.description.value.trim();
     //create new item id
@@ -138,8 +132,6 @@ class App extends Component {
       listId: newListId
     }
 
-    console.log(item); //debugging
-
     this.setState({
       items: [...this.state.items, item]
     })
@@ -147,7 +139,6 @@ class App extends Component {
 
   handleListEdit = (e, targetListId) => {
     e.preventDefault();
-    console.log(targetListId); //debugging
     const editedName = e.target.name.value.trim();
     const editedDescription = e.target.description.value.trim();
     //create date last edited
@@ -161,8 +152,6 @@ class App extends Component {
       date: dateEdited,
     }
 
-    console.log(editedList); //debugging
-
     this.setState({
       lists: this.state.lists.map(list => 
         (list.id !== editedList.id) ? list : editedList)
@@ -170,13 +159,39 @@ class App extends Component {
   }
 
   handleDeleteList = (targetListId) => {
-    console.log(targetListId); //debugging
     const newLists = this.state.lists.filter(list => 
       list.id !== targetListId
     )
-    console.log(newLists); //debugging
+
     this.setState({
       lists: newLists
+    })
+  }
+
+  handleItemDelete = (targetItemId) => {
+    const newItems = this.state.items.filter(item => 
+      item.id !== targetItemId
+    )
+    this.setState({
+      items: newItems
+    })
+  }
+
+  handleItemEdit = (e, targetItem) => {
+    e.preventDefault();
+    const editedName = e.target.name.value.trim();
+    const editedDescription = e.target.description.value.trim();
+
+    const editedItem = {
+      id: targetItem.id,
+      name: editedName,
+      description: editedDescription,
+      listId: targetItem.listId,
+    }
+
+    this.setState({
+      items: this.state.items.map(item => 
+        (item.id !== editedItem.id) ? item : editedItem)
     })
   }
 
@@ -232,6 +247,7 @@ class App extends Component {
                 {...props}
                 handleItemAdd={this.handleItemAdd}
                 handleDeleteList={this.handleDeleteList}
+                handleItemDelete={this.handleItemDelete}
               />
             } 
           />
@@ -243,10 +259,11 @@ class App extends Component {
               />
             } 
           />
-          <Route path='/edit-item' 
+          <Route path='/edit-item/:itemId' 
             render={(props) => 
               <EditItem
                 {...props}
+                handleItemEdit={this.handleItemEdit}
               />
             } 
           />

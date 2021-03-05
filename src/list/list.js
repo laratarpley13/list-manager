@@ -41,8 +41,8 @@ export default class List extends Component {
                                 <h4>{filteredItem.name}</h4>
                                 <p>{filteredItem.description}</p>
                                 <button>Complete</button>
-                                <button>Edit</button>
-                                <button>Delete</button>
+                                <button onClick={() => this.props.history.push(`/edit-item/${filteredItem.id}`)}>Edit</button>
+                                <button onClick={() => this.props.handleItemDelete(filteredItem.id)}>Delete</button>
                             </li>    
                         )}
                     </ul>
