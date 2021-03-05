@@ -145,6 +145,30 @@ class App extends Component {
     })
   }
 
+  handleListEdit = (e, targetListId) => {
+    e.preventDefault();
+    console.log(targetListId); //debugging
+    const editedName = e.target.name.value.trim();
+    const editedDescription = e.target.description.value.trim();
+    //create date last edited
+    let today = new Date();
+    let dateEdited = (today.getMonth()+1) + '/' + today.getDate() + '/' + today.getFullYear();
+
+    const editedList = {
+      id: targetListId,
+      name: editedName,
+      description: editedDescription,
+      date: dateEdited,
+    }
+
+    console.log(editedList); //debugging
+
+    this.setState({
+      lists: this.state.lists.map(list => 
+        (list.id !== editedList.id) ? list : editedList)
+    })
+  }
+
   render() {
     const value = {
       lists: this.state.lists,
@@ -199,10 +223,11 @@ class App extends Component {
               />
             } 
           />
-          <Route path='/edit-list' 
+          <Route path='/edit-list/:listId' 
             render={(props) => 
               <EditList
                 {...props}
+                handleListEdit = {this.handleListEdit}
               />
             } 
           />

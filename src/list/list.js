@@ -20,7 +20,7 @@ export default class List extends Component {
                 </nav>
                 <section className='list-info'>
                     <h1>{targetList.name}</h1>
-                    <p>Date Created: {targetList.date}</p>
+                    <p>Last Edited: {targetList.date}</p>
                     <p>{targetList.description}</p>
                     <form className='add-item' onSubmit={e => {
                         this.props.handleItemAdd(e, targetListId);
@@ -47,7 +47,7 @@ export default class List extends Component {
                         )}
                     </ul>
                     <div className="list-options">
-                        <button>Edit List</button>
+                        <button onClick={() => this.props.history.push(`/edit-list/${targetListId}`)}>Edit List</button>
                         <button>Delete List</button>
                     </div>
                 </section>
