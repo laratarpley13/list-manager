@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
 import Context from '../Context';
+import TokenService from '../services/token-service';
 import './list.css';
 
 export default class List extends Component {
     static contextType = Context;
+
+    logout = () => {
+        TokenService.clearAuthToken();
+        this.props.history.push('/landing')
+    }
+
     render() {
         const { lists, items } = this.context
 
@@ -16,7 +23,7 @@ export default class List extends Component {
                 <nav>
                     <h3>List Manager</h3>
                     <button onClick={() => this.props.history.push('/dashboard')}>Dashboard</button>
-                    <button onClick={() => this.props.history.push('/')}>Log Out</button>
+                    <button onClick={() => this.logout()}>Log Out</button>
                 </nav>
                 <section className='list-info'>
                     <h1>{targetList.name}</h1>

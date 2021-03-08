@@ -13,14 +13,14 @@ export default class SignUp extends Component {
                 <div className='sign-up-form'>
                     <h1>Sign Up</h1>
                     <form>
-                        <label htmlFor="new-username">Create Username:</label>
-                        <input type="text" id="new-username" name="new-username" />
+                        <label htmlFor="new-username">Email:</label>
+                        <input type="email" id="new-username" name="new-username" />
                         <br /> 
                         <label htmlFor="new-password">Create Password:</label>
-                        <input type="text" id="new-password" name="new-password" />
+                        <input type="password" id="new-password" name="new-password" />
                         <br />
                         <label htmlFor="confirm-password">Confirm Password:</label>
-                        <input type="text" id="confirm-password" name="confirm-password" />
+                        <input type="password" id="confirm-password" name="confirm-password" />
                         <br />
                         <button type="submit">Submit</button>
                     </form>

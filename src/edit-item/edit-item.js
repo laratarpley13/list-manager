@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
 import Context from '../Context';
+import TokenService from '../services/token-service';
 import './edit-item.css';
 
 export default class EditItem extends Component {
     static contextType = Context;
+
+    logout = () => {
+        TokenService.clearAuthToken();
+        this.props.history.push('/landing')
+    }
+
     render() {
         const { items } = this.context
         const targetItemId = parseInt(this.props.match.params.itemId)
@@ -15,7 +22,7 @@ export default class EditItem extends Component {
                 <nav>
                     <h3>List Manager</h3>
                     <button onClick={() => this.props.history.goBack()}>Cancel</button>
-                    <button onClick={() => this.props.history.push('/')}>Log Out</button>
+                    <button onClick={() => this.logout()}>Log Out</button>
                 </nav>
                 <section className='edit-item-form'>
                     <h1>Edit Item</h1>

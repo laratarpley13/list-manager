@@ -1,14 +1,20 @@
 import React, { Component } from 'react';
+import TokenService from '../services/token-service';
 import './create-list.css';
 
 export default class CreateList extends Component {
+    logout = () => {
+        TokenService.clearAuthToken();
+        this.props.history.push('/landing')
+    }
+
     render() {
         return(
             <div>
                 <nav>
                     <h3>List Manager</h3>
                     <button onClick={() => this.props.history.push('/dashboard')}>Dashboard</button>
-                    <button onClick={() => this.props.history.push('/')}> Log Out</button>
+                    <button onClick={() => this.logout()}> Log Out</button>
                 </nav>
                 <section className='create-list-form'>
                 <h1>Create New List</h1>

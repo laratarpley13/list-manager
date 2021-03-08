@@ -1,9 +1,16 @@
-import React, { Component } from 'react'
-import Context from '../Context'
-import './dashboard.css'
+import React, { Component } from 'react';
+import Context from '../Context';
+import TokenService from '../services/token-service';
+import './dashboard.css';
 
 export default class Dashboard extends Component {
     static contextType = Context;
+
+    logout = () => {
+        TokenService.clearAuthToken();
+        this.props.history.push('/landing')
+    }
+
     render() {
         const { lists, items } = this.context;
 
@@ -12,7 +19,7 @@ export default class Dashboard extends Component {
                 <nav>
                     <h3>List Manager</h3>
                     <button onClick={() => this.props.history.push('/create-list')}>Add List</button>
-                    <button onClick={() => this.props.history.push('/')}>Log Out</button>
+                    <button onClick={() => this.logout()}>Log Out</button>
                 </nav>
                 <section className='dashboard-page'>
                     <h1>Dashboard</h1>

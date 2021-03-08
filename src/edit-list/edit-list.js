@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
 import Context from '../Context';
+import TokenService from '../services/token-service';
 import './edit-list.css';
 
 export default class EditList extends Component {
     static contextType = Context;
+
+    logout = () => {
+        TokenService.clearAuthToken();
+        this.props.history.push('/landing')
+    }
+
     render() {
         const { lists } = this.context;
         const targetListId = parseInt(this.props.match.params.listId);
@@ -15,7 +22,7 @@ export default class EditList extends Component {
                 <nav>
                     <h3>List Manager</h3>
                     <button onClick={() => this.props.history.push(`/list/${targetListId}`)}>Cancel</button>                    
-                    <button onClick={() => this.props.history.push('/')}>Log Out</button>
+                    <button onClick={() => this.logout()}>Log Out</button>
                 </nav>
                 <section className='edit-list-form'>
                     <h1>Edit List</h1>
