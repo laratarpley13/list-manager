@@ -5,7 +5,7 @@ import './create-list.css';
 export default class CreateList extends Component {
     logout = () => {
         TokenService.clearAuthToken();
-        this.props.history.push('/landing')
+        this.props.history.push('/')
     }
 
     render() {

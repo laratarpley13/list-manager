@@ -8,7 +8,7 @@ export default class List extends Component {
 
     logout = () => {
         TokenService.clearAuthToken();
-        this.props.history.push('/landing')
+        this.props.history.push('/')
     }
 
     render() {

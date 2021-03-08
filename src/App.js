@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
+import TokenService from '../src/services/token-service';
 import './App.css';
 import Context from './Context';
 import Landing from '../src/landing-page/landing.js';
@@ -259,49 +260,87 @@ class App extends Component {
               />
             } 
           />
-          <Route path='/create-list' 
-            render={(props) => 
-              <CreateList
-                {...props}
-                handleListAdd={this.handleListAdd}
-              />
-            } 
+          <Route 
+            path={'/create-list'}
+            render={(props) => (
+              TokenService.hasAuthToken
+                ? <CreateList
+                    {...props}
+                    handleListAdd={this.handleListAdd}
+                  />
+                : <Redirect 
+                    to={{
+                      pathname: '/sign-in',
+                      state: { from: props.location }
+                    }}
+                  />
+            )} 
           />
           <Route 
-            path='/dashboard' 
-            render={(props) => 
-              <Dashboard 
-                {...props}
-              />
-            } 
+            path={'/dashboard'}
+            render={(props) => (
+              TokenService.hasAuthToken()
+                ? <Dashboard 
+                    {...props}
+                  />
+                : <Redirect 
+                    to={{
+                      pathname: '/sign-in',
+                      state: { from: props.location }
+                    }}
+                  />
+            )} 
           />
           <Route 
-            path='/list/:listId' 
-            render={(props) => 
-              <List 
-                {...props}
-                handleItemAdd={this.handleItemAdd}
-                handleDeleteList={this.handleDeleteList}
-                handleItemDelete={this.handleItemDelete}
-                toggleClass={this.toggleClass}
-              />
-            } 
+            path={'/list/:listId'} 
+            render={(props) => (
+              TokenService.hasAuthToken()
+                ? <List 
+                    {...props}
+                    handleItemAdd={this.handleItemAdd}
+                    handleDeleteList={this.handleDeleteList}
+                    handleItemDelete={this.handleItemDelete}
+                    toggleClass={this.toggleClass}
+                  />
+                : <Redirect 
+                    to={{
+                      pathname: '/sign-in',
+                      state: { from: props.location }
+                    }}
+                  />
+            )}
           />
-          <Route path='/edit-list/:listId' 
-            render={(props) => 
-              <EditList
-                {...props}
-                handleListEdit = {this.handleListEdit}
-              />
-            } 
+          <Route 
+            path={'/edit-list/:listId'} 
+            render={(props) => (
+              TokenService.hasAuthToken()
+                ?  <EditList
+                    {...props}
+                    handleListEdit = {this.handleListEdit}
+                  />
+                : <Redirect 
+                    to={{
+                      pathname: '/sign-in',
+                      state: { from: props.location }
+                    }}
+                  />
+            )} 
           />
-          <Route path='/edit-item/:itemId' 
-            render={(props) => 
-              <EditItem
-                {...props}
-                handleItemEdit={this.handleItemEdit}
-              />
-            } 
+          <Route 
+            path={'/edit-item/:itemId'}
+            render={(props) => ( 
+              TokenService.hasAuthToken()
+                ?  <EditItem
+                    {...props}
+                    handleItemEdit={this.handleItemEdit}
+                  />
+                : <Redirect 
+                    to={{
+                      pathname: '/sign-in',
+                      state: { from: props.location }
+                    }}
+                  />
+            )}
           />
         </main>
       </Context.Provider>

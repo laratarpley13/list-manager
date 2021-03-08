@@ -8,7 +8,7 @@ export default class Dashboard extends Component {
 
     logout = () => {
         TokenService.clearAuthToken();
-        this.props.history.push('/landing')
+        this.props.history.push('/')
     }
 
     render() {
