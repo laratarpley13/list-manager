@@ -38,8 +38,8 @@ export default class Share extends Component {
         const targetListId = parseInt(this.props.match.params.listId);
         let targetList = lists.filter(list => list.id === targetListId);
         targetList = targetList[0]; */
-        console.log(this.state.targetList) //debugging
-        console.log(this.state.items) //debugging
+        console.log(this.state.targetList)
+        console.log(this.state.items)
 
         return (
             <div>
@@ -51,7 +51,7 @@ export default class Share extends Component {
                 <section className='share-list-view'>
                     <h1>{this.state.targetList.name}</h1>
                     <p>{this.state.targetList.description}</p>
-                    <ul className="list-items">
+                    <ul classname="list-items">
                         {this.state.items.map(item => 
                             <li key={item.id}>
                                 <h4 className={item.active ? 'check-item': null}>{item.name}</h4>
