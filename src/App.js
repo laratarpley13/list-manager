@@ -9,8 +9,9 @@ import SignIn from '../src/sign-in/sign-in.js';
 import CreateList from '../src/create-list/create-list.js';
 import Dashboard from '../src/dashboard/dashboard.js';
 import List from '../src/list/list.js';
-import EditList from '../src/edit-list/edit-list.js'
-import EditItem from '../src/edit-item/edit-item.js'
+import EditList from '../src/edit-list/edit-list.js';
+import EditItem from '../src/edit-item/edit-item.js';
+import Share from '../src/share/share.js';
 
 class App extends Component {
   state = {
@@ -245,6 +246,14 @@ class App extends Component {
                 {...props}
               />
             } 
+          />
+          <Route path='/share/:listId' 
+            render={(props) => 
+              <Share 
+                {...props}
+                toggleClass={this.toggleClass}
+              />
+            }
           />
           <Route path='/sign-up' 
             render={(props) => 
