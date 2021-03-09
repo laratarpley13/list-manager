@@ -51,7 +51,7 @@ export default class Share extends Component {
                 <section className='share-list-view'>
                     <h1>{this.state.targetList.name}</h1>
                     <p>{this.state.targetList.description}</p>
-                    <ul classname="list-items">
+                    <ul className="list-items">
                         {this.state.items.map(item => 
                             <li key={item.id}>
                                 <h4 className={item.active ? 'check-item': null}>{item.name}</h4>
