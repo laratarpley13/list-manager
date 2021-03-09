@@ -12,7 +12,6 @@ export default class Landing extends Component {
                 </nav>
                 <section className='landing-page'>
                     <h1>Organize, Share, and Manage Your Lists</h1>
-                    <p>Create multiple lists, check off items as you complete them, and share an un-editable list with your partner, friend, family member to help you complete your tasks together.</p>
                     <p>How it works: Get a preview of all your lists and items, create new lists, add items within a list, cross of items as you complete them, and share a list with a friend to help you complete your tasks and goals.</p>
                 </section>
             </div>
