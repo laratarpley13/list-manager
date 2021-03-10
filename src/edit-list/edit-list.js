@@ -12,7 +12,7 @@ export default class EditList extends Component {
     }
 
     render() {
-        const { lists } = this.context;
+        const { user, lists } = this.context;
         const targetListId = parseInt(this.props.match.params.listId);
         let targetList = lists.filter(list => list.id === targetListId);
         targetList = targetList[0];
@@ -28,7 +28,7 @@ export default class EditList extends Component {
                     <h1>Edit List</h1>
                     <form onSubmit={e => {
                         this.props.handleListEdit(e, targetList)
-                        this.props.history.push(`/list/${targetListId}`);
+                        this.props.history.push(`/list/${user.id}/${targetListId}`);
                     }}>
                         <label htmlFor="name">Name:</label>
                         <input type="text" id="name" name="name" defaultValue={targetList.name} />
