@@ -27,7 +27,7 @@ export default class List extends Component {
                 </nav>
                 <section className='list-info'>
                     <h1>{targetList.name}</h1>
-                    <p>Last Edited: {targetList.date}</p>
+                    <p>Date Created: {targetList.date}</p>
                     <div className="list-options">
                         <button onClick={() => this.props.history.push(`/edit-list/${targetListId}`)}>Edit List</button>
                         <button onClick={() => {

@@ -33,7 +33,7 @@ export default class Dashboard extends Component {
                         {lists.map((list) => 
                             <div key={list.id} className="list-preview">
                                 <h3>{list.name}</h3>
-                                <p>Last Edited: {list.date}</p>
+                                <p>Date Created: {list.date}</p>
                                 <ul>
                                     {items.filter(item => item.listId === list.id).map(filteredItem => (
                                         <li key={filteredItem.id} className={filteredItem.active ? 'check-item': null}>{filteredItem.name}</li>

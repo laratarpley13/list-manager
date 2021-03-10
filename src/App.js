@@ -28,7 +28,7 @@ class App extends Component {
       {
         id: 3,
         name: 'List 3',
-        date: '03/03/2023',
+        date: '03/03/2020',
       },
     ],
     items: [
@@ -148,17 +148,14 @@ class App extends Component {
     })
   }
 
-  handleListEdit = (e, targetListId) => {
+  handleListEdit = (e, targetList) => {
     e.preventDefault();
     const editedName = e.target.name.value.trim();
-    //create date last edited
-    let today = new Date();
-    let dateEdited = (today.getMonth()+1) + '/' + today.getDate() + '/' + today.getFullYear();
 
     const editedList = {
-      id: targetListId,
+      id: targetList.id,
       name: editedName,
-      date: dateEdited,
+      date: targetList.date,
     }
 
     this.setState({

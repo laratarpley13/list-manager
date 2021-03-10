@@ -27,7 +27,7 @@ export default class EditList extends Component {
                 <section className='edit-list-form'>
                     <h1>Edit List</h1>
                     <form onSubmit={e => {
-                        this.props.handleListEdit(e, targetListId)
+                        this.props.handleListEdit(e, targetList)
                         this.props.history.push(`/list/${targetListId}`);
                     }}>
                         <label htmlFor="name">Name:</label>
