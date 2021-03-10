@@ -18,11 +18,19 @@ nav, .dashboard-page {
     padding: 20px;
     font-size: 20px;
   }
+
+  .lists {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+  }
   
   .list-preview {
     margin: 20px;
     padding: 20px;
     border: 2px solid darkgray;
+    flex-basis: 42%;
   }
   
   .list-preview h3 {
