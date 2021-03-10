@@ -4,6 +4,8 @@ import { API_BASE_URL } from '../config';
 import './sign-in.css';
 
 export default class SignIn extends Component {
+    //set up authentication in the back end
+
     handleSignIn = (e) => {
         e.preventDefault();
         const { username, password } = e.target;

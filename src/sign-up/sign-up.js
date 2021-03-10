@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import './sign-up.css';
 
 export default class SignUp extends Component {
+    //set up authentication in the back-end
+
     render() {
         return (
             <div>
