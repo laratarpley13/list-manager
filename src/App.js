@@ -164,8 +164,13 @@ class App extends Component {
     let today = new Date();
     let dateAdded = (today.getMonth()+1) + '/' + today.getDate() + '/' + today.getFullYear();
     //create new id
-    let last = this.state.lists[this.state.lists.length - 1];
-    const newListId = last.id + 1;
+    let newListId = 0
+    if(this.state.lists.length === 0) {
+      newListId = 1
+    } else {
+      let last = this.state.lists[this.state.lists.length - 1];
+      newListId = last.id + 1;
+    }
     
     const list = {
       id: newListId,
@@ -187,8 +192,13 @@ class App extends Component {
   
     const newItemName = e.target.name.value.trim();
     //create new item id
-    let last = this.state.items[this.state.items.length - 1];
-    const newItemId = last.id + 1;
+    let newItemId = 0;
+    if(this.state.items.length === 0) {
+      newItemId = 1;
+    } else {
+      let last = this.state.items[this.state.items.length - 1];
+      newItemId = last.id + 1;
+    }
 
     const item = {
       id: newItemId,
