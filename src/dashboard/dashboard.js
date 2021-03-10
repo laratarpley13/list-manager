@@ -6,11 +6,11 @@ import './dashboard.css';
 export default class Dashboard extends Component {
     static contextType = Context;
 
-    shareList = (selectedList) => {
+    /* shareList = (selectedList) => {
         console.log(`http://localhost:3000/share/${selectedList.id}`)
         const selectedListUrl = `http://localhost:3000/share/${selectedList.id}`
         alert(`Copy this link to share your list:\n${selectedListUrl}`)
-    }
+    } */
 
     logout = () => {
         TokenService.clearAuthToken();
@@ -18,7 +18,9 @@ export default class Dashboard extends Component {
     }
 
     render() {
-        const { lists, items } = this.context;
+        const { user, lists, items } = this.context;
+
+        console.log(user) //debugging
 
         return(
             <div>
@@ -39,7 +41,7 @@ export default class Dashboard extends Component {
                                         <li key={filteredItem.id} className={filteredItem.active ? 'check-item': null}>{filteredItem.name}</li>
                                     ))}
                                 </ul>
-                                <button onClick={() => this.props.history.push(`/list/${list.id}`)}>View</button>
+                                <button onClick={() => this.props.history.push(`/list/${user.id}/${list.id}`)}>View</button>
                                 <button onClick={() => 
                                     {
                                         navigator.clipboard.writeText(`http://localhost:3000/share/${list.id}`);

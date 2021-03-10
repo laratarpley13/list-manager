@@ -12,8 +12,10 @@ export default class List extends Component {
     }
 
     render() {
-        const { lists, items } = this.context
+        const { user, lists, items } = this.context
 
+        const targetUserId = parseInt(this.props.match.params.userId);
+        console.log(targetUserId)
         const targetListId = parseInt(this.props.match.params.listId);
         let targetList = lists.filter(list => list.id === targetListId);
         targetList = targetList[0];
@@ -22,29 +24,38 @@ export default class List extends Component {
             <div>
                 <nav>
                     <h3>List Manager</h3>
-                    <button onClick={() => this.props.history.push('/dashboard')}>Dashboard</button>
-                    <button onClick={() => this.logout()}>Log Out</button>
+                    {(TokenService.hasAuthToken() && user.id === targetUserId)
+                        ? <><button onClick={() => this.props.history.push('/dashboard')}>Dashboard</button>
+                          <button onClick={() => this.logout()}>Log Out</button></>
+                        : <><button onClick={() => this.props.history.push('/')}>Home</button></>
+                    }
                 </nav>
                 <section className='list-info'>
                     <h1>{targetList.name}</h1>
                     <p>Date Created: {targetList.date}</p>
-                    <div className="list-options">
-                        <button onClick={() => this.props.history.push(`/edit-list/${targetListId}`)}>Edit List</button>
-                        <button onClick={() => {
-                            this.props.history.push(`/dashboard`);
-                            this.props.handleDeleteList(targetListId);
-                        }}>Delete List</button>
-                    </div>
-                    <form className='add-item' onSubmit={e => {
-                        this.props.handleItemAdd(e, targetListId);
-                        e.target.reset();    
-                    }}>
-                        <h3>Add Item</h3>
-                        <label htmlFor="name">Name:</label>
-                        <input type="text" id="name" name="name" required />
-                        <br />
-                        <button type="submit">Submit</button>
-                    </form>
+                    {(TokenService.hasAuthToken() && user.id === targetUserId)
+                        ?   <div className="list-options">
+                                <button onClick={() => this.props.history.push(`/edit-list/${targetListId}`)}>Edit List</button>
+                                <button onClick={() => {
+                                    this.props.history.push(`/dashboard`);
+                                    this.props.handleDeleteList(targetListId);
+                                }}>Delete List</button>
+                            </div>
+                        : null
+                    }
+                    {(TokenService.hasAuthToken() && user.id === targetUserId)
+                        ?  <form className='add-item' onSubmit={e => {
+                                this.props.handleItemAdd(e, targetListId);
+                                e.target.reset();    
+                            }}>
+                                <h3>Add Item</h3>
+                                <label htmlFor="name">Name:</label>
+                                <input type="text" id="name" name="name" required />
+                                <br />
+                                <button type="submit">Submit</button>
+                            </form>
+                        : null
+                    }
                     <ul className="list-items">
                         {items.filter(item => item.listId === targetListId).map(filteredItem => 
                             <li key={filteredItem.id}>
@@ -53,8 +64,11 @@ export default class List extends Component {
                                     ? <button onClick={() => this.props.toggleClass(filteredItem)}>Un-Check</button>
                                     : <button onClick={() => this.props.toggleClass(filteredItem)}>Check-Off</button>
                                 }
-                                <button onClick={() => this.props.handleEditToggle(filteredItem)}>Edit</button>
-                                <button onClick={() => this.props.handleItemDelete(filteredItem.id)}>Delete</button>
+                                {(TokenService.hasAuthToken() && user.id === targetUserId)
+                                    ? <><button onClick={() => this.props.handleEditToggle(filteredItem)}>Edit</button>
+                                      <button onClick={() => this.props.handleItemDelete(filteredItem.id)}>Delete</button></>
+                                    : null
+                                }
                                 {filteredItem.editItemActive
                                     ?   <form onSubmit={e => {this.props.handleItemEdit(e, filteredItem)}}>
                                             <label htmlFor="name">Name:</label>

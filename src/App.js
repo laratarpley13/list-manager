@@ -13,21 +13,29 @@ import EditList from '../src/edit-list/edit-list.js';
 
 class App extends Component {
   state = {
+    user: {
+        id: 1,
+        username: 'demo@demo.com',
+        password: 'P@ssword1234',
+    },
     lists: [
       {
         id: 1,
         name: 'List 1',
         date: '01/01/2021',
+        userId: 1,
       },
       {
         id: 2,
         name: 'List 2',
         date: '02/02/2021',
+        userId: 1,
       },
       {
         id: 3,
         name: 'List 3',
         date: '03/03/2020',
+        userId: 1,
       },
     ],
     items: [
@@ -35,6 +43,7 @@ class App extends Component {
         id: 1,
         name: 'Item  1',
         listId: 1,
+        userId: 1,
         active: false,
         editItemActive: false,
       },
@@ -42,6 +51,7 @@ class App extends Component {
         id: 2,
         name: 'Item  2',
         listId: 1,
+        userId: 1,
         active: false,
         editItemActive: false,
       },
@@ -49,6 +59,7 @@ class App extends Component {
         id: 3,
         name: 'Item  3',
         listId: 1,
+        userId: 1,
         active: false,
         editItemActive: false,
       },
@@ -56,6 +67,7 @@ class App extends Component {
         id: 4,
         name: 'Item  4',
         listId: 2,
+        userId: 1,
         active: false,
         editItemActive: false,
       },
@@ -63,6 +75,7 @@ class App extends Component {
         id: 5,
         name: 'Item  5',
         listId: 2,
+        userId: 1,
         active: false,
         editItemActive: false,
       },
@@ -70,6 +83,7 @@ class App extends Component {
         id: 6,
         name: 'Item  6',
         listId: 2,
+        userId: 1,
         active: false,
         editItemActive: false,
       },
@@ -77,6 +91,7 @@ class App extends Component {
         id: 7,
         name: 'Item  7',
         listId: 3,
+        userId: 1,
         active: false,
         editItemActive: false,
       },
@@ -84,6 +99,7 @@ class App extends Component {
         id: 8,
         name: 'Item  8',
         listId: 3,
+        userId: 1,
         active: false,
         editItemActive: false,
       },
@@ -91,6 +107,7 @@ class App extends Component {
         id: 9,
         name: 'Item  9',
         listId: 3,
+        userId: 1,
         active: false,
         editItemActive: false,
       }
@@ -237,6 +254,7 @@ class App extends Component {
 
   render() {
     const value = {
+      user: this.state.user,
       lists: this.state.lists,
       items: this.state.items,
     }
@@ -296,25 +314,18 @@ class App extends Component {
             )} 
           />
           <Route 
-            path={'/list/:listId'} 
-            render={(props) => (
-              TokenService.hasAuthToken()
-                ? <List 
-                    {...props}
-                    handleItemAdd={this.handleItemAdd}
-                    handleDeleteList={this.handleDeleteList}
-                    handleItemDelete={this.handleItemDelete}
-                    toggleClass={this.toggleClass}
-                    handleEditToggle={this.handleEditToggle}
-                    handleItemEdit={this.handleItemEdit}
-                  />
-                : <Redirect 
-                    to={{
-                      pathname: '/sign-in',
-                      state: { from: props.location }
-                    }}
-                  />
-            )}
+            path={'/list/:userId/:listId'} 
+            render={(props) =>
+              <List 
+                {...props}
+                handleItemAdd={this.handleItemAdd}
+                handleDeleteList={this.handleDeleteList}
+                handleItemDelete={this.handleItemDelete}
+                toggleClass={this.toggleClass}
+                handleEditToggle={this.handleEditToggle}
+                handleItemEdit={this.handleItemEdit}
+              />
+            }
           />
           <Route 
             path={'/edit-list/:listId'} 
