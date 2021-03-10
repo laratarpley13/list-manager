@@ -33,9 +33,6 @@ export default class EditItem extends Component {
                         <label htmlFor="name">Name:</label>
                         <input type="text" id="name" name="name" defaultValue={targetItem.name} />
                         <br />
-                        <label htmlFor="description">Description:</label>
-                        <input type="text" id="description" name="description" defaultValue={targetItem.description} />
-                        <br />
                         <button type="submit">Submit</button>
                     </form>
                 </section>

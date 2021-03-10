@@ -11,7 +11,6 @@ import Dashboard from '../src/dashboard/dashboard.js';
 import List from '../src/list/list.js';
 import EditList from '../src/edit-list/edit-list.js';
 import EditItem from '../src/edit-item/edit-item.js';
-import Share from '../src/share/share.js';
 
 class App extends Component {
   state = {
@@ -19,19 +18,16 @@ class App extends Component {
       {
         id: 1,
         name: 'List 1',
-        description: 'Test List 1',
         date: '01/01/2021',
       },
       {
         id: 2,
         name: 'List 2',
-        description: 'Test List 2',
         date: '02/02/2021',
       },
       {
         id: 3,
         name: 'List 3',
-        description: 'Test List 3',
         date: '03/03/2023',
       },
     ],
@@ -39,63 +35,54 @@ class App extends Component {
       {
         id: 1,
         name: 'Item  1',
-        description: 'test item 1',
         listId: 1,
         active: false
       },
       {
         id: 2,
         name: 'Item  2',
-        description: 'test item 2',
         listId: 1,
         active: false
       },
       {
         id: 3,
         name: 'Item  3',
-        description: 'test item 3',
         listId: 1,
         active: false
       },
       {
         id: 4,
         name: 'Item  4',
-        description: 'test item 4',
         listId: 2,
         active: false
       },
       {
         id: 5,
         name: 'Item  5',
-        description: 'test item ',
         listId: 2,
         active: false
       },
       {
         id: 6,
         name: 'Item  6',
-        description: 'test item 6',
         listId: 2,
         active: false
       },
       {
         id: 7,
         name: 'Item  7',
-        description: 'test item 7',
         listId: 3,
         active: false
       },
       {
         id: 8,
         name: 'Item  8',
-        description: 'test item 8',
         listId: 3,
         active: false
       },
       {
         id: 9,
         name: 'Item  9',
-        description: 'test item 9',
         listId: 3,
         active: false
       }
@@ -108,7 +95,6 @@ class App extends Component {
     const toggleSelectedItem = {
       id: selectedItem.id,
       name: selectedItem.name,
-      description: selectedItem.description,
       listId: selectedItem.listId,
       active: !currentState
     }
@@ -122,7 +108,6 @@ class App extends Component {
   handleListAdd = (e) => {
     e.preventDefault();
     const newListName = e.target.name.value.trim();
-    const newListDescription = e.target.description.value.trim();
     //create date added
     let today = new Date();
     let dateAdded = (today.getMonth()+1) + '/' + today.getDate() + '/' + today.getFullYear();
@@ -133,7 +118,6 @@ class App extends Component {
     const list = {
       id: newListId,
       name: newListName,
-      description: newListDescription,
       date: dateAdded,
     }
 
@@ -148,7 +132,6 @@ class App extends Component {
     e.preventDefault();
   
     const newItemName = e.target.name.value.trim();
-    const newItemDescription = e.target.description.value.trim();
     //create new item id
     let last = this.state.items[this.state.items.length - 1];
     const newItemId = last.id + 1;
@@ -156,7 +139,6 @@ class App extends Component {
     const item = {
       id: newItemId,
       name: newItemName,
-      description: newItemDescription,
       listId: newListId,
       active: false
     }
@@ -169,7 +151,6 @@ class App extends Component {
   handleListEdit = (e, targetListId) => {
     e.preventDefault();
     const editedName = e.target.name.value.trim();
-    const editedDescription = e.target.description.value.trim();
     //create date last edited
     let today = new Date();
     let dateEdited = (today.getMonth()+1) + '/' + today.getDate() + '/' + today.getFullYear();
@@ -177,7 +158,6 @@ class App extends Component {
     const editedList = {
       id: targetListId,
       name: editedName,
-      description: editedDescription,
       date: dateEdited,
     }
 
@@ -216,12 +196,10 @@ class App extends Component {
   handleItemEdit = (e, targetItem) => {
     e.preventDefault();
     const editedName = e.target.name.value.trim();
-    const editedDescription = e.target.description.value.trim();
 
     const editedItem = {
       id: targetItem.id,
       name: editedName,
-      description: editedDescription,
       listId: targetItem.listId,
       active: false
     }
@@ -246,14 +224,6 @@ class App extends Component {
                 {...props}
               />
             } 
-          />
-          <Route path='/share/:listId' 
-            render={(props) => 
-              <Share 
-                {...props}
-                toggleClass={this.toggleClass}
-              />
-            }
           />
           <Route path='/sign-up' 
             render={(props) => 

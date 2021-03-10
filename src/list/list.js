@@ -28,7 +28,13 @@ export default class List extends Component {
                 <section className='list-info'>
                     <h1>{targetList.name}</h1>
                     <p>Last Edited: {targetList.date}</p>
-                    <p>{targetList.description}</p>
+                    <div className="list-options">
+                        <button onClick={() => this.props.history.push(`/edit-list/${targetListId}`)}>Edit List</button>
+                        <button onClick={() => {
+                            this.props.history.push(`/dashboard`);
+                            this.props.handleDeleteList(targetListId);
+                        }}>Delete List</button>
+                    </div>
                     <form className='add-item' onSubmit={e => {
                         this.props.handleItemAdd(e, targetListId);
                         e.target.reset();    
@@ -37,16 +43,12 @@ export default class List extends Component {
                         <label htmlFor="name">Name:</label>
                         <input type="text" id="name" name="name" required />
                         <br />
-                        <label htmlFor="description">Description:</label>
-                        <input type="text" id="description" name="description" required />
-                        <br />
                         <button type="submit">Submit</button>
                     </form>
                     <ul className="list-items">
                         {items.filter(item => item.listId === targetListId).map(filteredItem => 
                             <li key={filteredItem.id}>
                                 <h4 className={filteredItem.active ? 'check-item': null}>{filteredItem.name}</h4>
-                                <p>{filteredItem.description}</p>
                                 {filteredItem.active
                                     ? <button onClick={() => this.props.toggleClass(filteredItem)}>Un-Check</button>
                                     : <button onClick={() => this.props.toggleClass(filteredItem)}>Check-Off</button>
@@ -56,13 +58,7 @@ export default class List extends Component {
                             </li>    
                         )}
                     </ul>
-                    <div className="list-options">
-                        <button onClick={() => this.props.history.push(`/edit-list/${targetListId}`)}>Edit List</button>
-                        <button onClick={() => {
-                            this.props.history.push(`/dashboard`);
-                            this.props.handleDeleteList(targetListId);
-                        }}>Delete List</button>
-                    </div>
+                    <button className='back-button' onClick={() => this.props.history.push('/dashboard')}>Back</button>
                 </section>
             </div>
         )

@@ -18,6 +18,11 @@ nav, .list-info {
     padding: 20px;
     font-size: 20px;
   }
+
+  .list-options button {
+    margin: 10px;
+    padding: 5px;
+  }
   
   form {
     margin: 20px;
@@ -52,7 +57,7 @@ nav, .list-info {
     color: red;
   }
   
-  .list-options button {
+  .back-button {
     margin: 10px;
     padding: 5px;
   }
