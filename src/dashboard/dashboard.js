@@ -6,12 +6,6 @@ import './dashboard.css';
 export default class Dashboard extends Component {
     static contextType = Context;
 
-    /* shareList = (selectedList) => {
-        console.log(`http://localhost:3000/share/${selectedList.id}`)
-        const selectedListUrl = `http://localhost:3000/share/${selectedList.id}`
-        alert(`Copy this link to share your list:\n${selectedListUrl}`)
-    } */
-
     logout = () => {
         TokenService.clearAuthToken();
         this.props.history.push('/')
@@ -19,8 +13,6 @@ export default class Dashboard extends Component {
 
     render() {
         const { user, lists, items } = this.context;
-
-        console.log(user) //debugging
 
         return(
             <div>
@@ -44,7 +36,7 @@ export default class Dashboard extends Component {
                                 <button onClick={() => this.props.history.push(`/list/${user.id}/${list.id}`)}>View</button>
                                 <button onClick={() => 
                                     {
-                                        navigator.clipboard.writeText(`http://localhost:3000/share/${list.id}`);
+                                        navigator.clipboard.writeText(`http://localhost:3000/list/${user.id}/${list.id}`);
                                         alert('A shareable link has been copied to your clipboard.')
                                     }
                                     

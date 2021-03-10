@@ -114,6 +114,11 @@ class App extends Component {
     ],
   }
 
+  /* In component did mount, with user that logged in, 
+  get user information and corresponding lists and items, 
+  and save to state
+  */
+
   toggleClass = (selectedItem) => {
     const currentState = selectedItem.active;
 
@@ -129,6 +134,8 @@ class App extends Component {
       items: this.state.items.map(item => 
         (item.id !== selectedItem.id) ? item : toggleSelectedItem)
     })
+
+    // patch request to api
   }
 
   handleEditToggle = (selectedItem) => {
@@ -146,6 +153,8 @@ class App extends Component {
       items: this.state.items.map(item => 
         (item.id !== selectedItem.id) ? item : toggleSelectedItem)
     })
+
+    //patch request to api
   }
 
   handleListAdd = (e) => {
@@ -169,6 +178,8 @@ class App extends Component {
         lists: [...this.state.lists, list]
       }
     )
+
+    //post request to api
   }
 
   handleItemAdd = (e, newListId) => {
@@ -190,6 +201,8 @@ class App extends Component {
     this.setState({
       items: [...this.state.items, item]
     })
+
+    //post request to api
   }
 
   handleListEdit = (e, targetList) => {
@@ -206,6 +219,8 @@ class App extends Component {
       lists: this.state.lists.map(list => 
         (list.id !== editedList.id) ? list : editedList)
     })
+
+    //patch request to api
   }
 
   handleDeleteList = (targetListId) => {
@@ -223,6 +238,8 @@ class App extends Component {
     this.setState({
       items: newItems
     })
+
+    //delete request to api
   }
 
   handleItemDelete = (targetItemId) => {
@@ -232,6 +249,8 @@ class App extends Component {
     this.setState({
       items: newItems
     })
+
+    //delete request to api
   }
 
   handleItemEdit = (e, targetItem) => {
@@ -250,6 +269,8 @@ class App extends Component {
       items: this.state.items.map(item => 
         (item.id !== editedItem.id) ? item : editedItem)
     })
+
+    //patch request to api
   }
 
   render() {

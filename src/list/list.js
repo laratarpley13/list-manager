@@ -6,6 +6,13 @@ import './list.css';
 export default class List extends Component {
     static contextType = Context;
 
+    /*if user !== targetUser, get request to 
+    to api to grab user info for specific list 
+
+    patch request to toggle items complete if not
+    owner of the list?
+    */
+
     logout = () => {
         TokenService.clearAuthToken();
         this.props.history.push('/')
