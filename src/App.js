@@ -10,7 +10,6 @@ import CreateList from '../src/create-list/create-list.js';
 import Dashboard from '../src/dashboard/dashboard.js';
 import List from '../src/list/list.js';
 import EditList from '../src/edit-list/edit-list.js';
-import EditItem from '../src/edit-item/edit-item.js';
 
 class App extends Component {
   state = {
@@ -36,55 +35,64 @@ class App extends Component {
         id: 1,
         name: 'Item  1',
         listId: 1,
-        active: false
+        active: false,
+        editItemActive: false,
       },
       {
         id: 2,
         name: 'Item  2',
         listId: 1,
-        active: false
+        active: false,
+        editItemActive: false,
       },
       {
         id: 3,
         name: 'Item  3',
         listId: 1,
-        active: false
+        active: false,
+        editItemActive: false,
       },
       {
         id: 4,
         name: 'Item  4',
         listId: 2,
-        active: false
+        active: false,
+        editItemActive: false,
       },
       {
         id: 5,
         name: 'Item  5',
         listId: 2,
-        active: false
+        active: false,
+        editItemActive: false,
       },
       {
         id: 6,
         name: 'Item  6',
         listId: 2,
-        active: false
+        active: false,
+        editItemActive: false,
       },
       {
         id: 7,
         name: 'Item  7',
         listId: 3,
-        active: false
+        active: false,
+        editItemActive: false,
       },
       {
         id: 8,
         name: 'Item  8',
         listId: 3,
-        active: false
+        active: false,
+        editItemActive: false,
       },
       {
         id: 9,
         name: 'Item  9',
         listId: 3,
-        active: false
+        active: false,
+        editItemActive: false,
       }
     ],
   }
@@ -96,7 +104,25 @@ class App extends Component {
       id: selectedItem.id,
       name: selectedItem.name,
       listId: selectedItem.listId,
-      active: !currentState
+      active: !currentState,
+      editItemActive: selectedItem.editItemActive,
+    }
+
+    this.setState({
+      items: this.state.items.map(item => 
+        (item.id !== selectedItem.id) ? item : toggleSelectedItem)
+    })
+  }
+
+  handleEditToggle = (selectedItem) => {
+    const currentState = selectedItem.editItemActive;
+
+    const toggleSelectedItem = {
+      id: selectedItem.id,
+      name: selectedItem.name,
+      listId: selectedItem.listId,
+      active: selectedItem.active,
+      editItemActive: !currentState,
     }
 
     this.setState({
@@ -140,7 +166,8 @@ class App extends Component {
       id: newItemId,
       name: newItemName,
       listId: newListId,
-      active: false
+      active: false,
+      editItemActive: false,
     }
 
     this.setState({
@@ -198,7 +225,8 @@ class App extends Component {
       id: targetItem.id,
       name: editedName,
       listId: targetItem.listId,
-      active: false
+      active: false,
+      editItemActive: false,
     }
 
     this.setState({
@@ -277,6 +305,8 @@ class App extends Component {
                     handleDeleteList={this.handleDeleteList}
                     handleItemDelete={this.handleItemDelete}
                     toggleClass={this.toggleClass}
+                    handleEditToggle={this.handleEditToggle}
+                    handleItemEdit={this.handleItemEdit}
                   />
                 : <Redirect 
                     to={{
@@ -301,22 +331,6 @@ class App extends Component {
                     }}
                   />
             )} 
-          />
-          <Route 
-            path={'/edit-item/:itemId'}
-            render={(props) => ( 
-              TokenService.hasAuthToken()
-                ?  <EditItem
-                    {...props}
-                    handleItemEdit={this.handleItemEdit}
-                  />
-                : <Redirect 
-                    to={{
-                      pathname: '/sign-in',
-                      state: { from: props.location }
-                    }}
-                  />
-            )}
           />
         </main>
       </Context.Provider>

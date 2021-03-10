@@ -53,8 +53,17 @@ export default class List extends Component {
                                     ? <button onClick={() => this.props.toggleClass(filteredItem)}>Un-Check</button>
                                     : <button onClick={() => this.props.toggleClass(filteredItem)}>Check-Off</button>
                                 }
-                                <button onClick={() => this.props.history.push(`/edit-item/${filteredItem.id}`)}>Edit</button>
+                                <button onClick={() => this.props.handleEditToggle(filteredItem)}>Edit</button>
                                 <button onClick={() => this.props.handleItemDelete(filteredItem.id)}>Delete</button>
+                                {filteredItem.editItemActive
+                                    ?   <form onSubmit={e => {this.props.handleItemEdit(e, filteredItem)}}>
+                                            <label htmlFor="name">Name:</label>
+                                            <input type="text" id="name" name="name" defaultValue={filteredItem.name} />
+                                            <br />
+                                            <button type="submit">Submit</button>
+                                        </form>
+                                    :   null
+                                }
                             </li>    
                         )}
                     </ul>
