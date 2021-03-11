@@ -36,7 +36,7 @@ export default class Dashboard extends Component {
                                 <button onClick={() => this.props.history.push(`/list/${user.id}/${list.id}`)}>View</button>
                                 <button onClick={() => 
                                     {
-                                        navigator.clipboard.writeText(`https://list-manager-laratarpley13.vercel.app/${user.id}/${list.id}`);
+                                        navigator.clipboard.writeText(`https://list-manager-laratarpley13.vercel.app/list/${user.id}/${list.id}`);
                                         alert('A shareable link has been copied to your clipboard.')
                                     }
                                     
