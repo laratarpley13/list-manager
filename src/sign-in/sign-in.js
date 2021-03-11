@@ -8,11 +8,11 @@ export default class SignIn extends Component {
 
     handleSignIn = (e) => {
         e.preventDefault();
-        const { username, password } = e.target;
+        /* const { username, password } = e.target;
         const user = { 
             username: username.value, 
             password: password.value,
-        }
+        } */
         /* fetch(`${API_BASE_URL}/api/auth/signin`, {
             method: 'POST',
             headers: {
