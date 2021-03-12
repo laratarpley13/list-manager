@@ -64,7 +64,7 @@ export default class List extends Component {
                         : null
                     }
                     <ul className="list-items">
-                        {items.filter(item => item.listId === targetListId).map(filteredItem => 
+                        {items.filter(item => item.listid === targetListId).map(filteredItem => 
                             <li key={filteredItem.id}>
                                 <h4 className={filteredItem.active ? 'check-item': null}>{filteredItem.name}</h4>
                                 {filteredItem.active

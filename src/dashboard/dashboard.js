@@ -29,7 +29,7 @@ export default class Dashboard extends Component {
                                 <h3>{list.name}</h3>
                                 <p>Date Created: {list.date}</p>
                                 <ul>
-                                    {items.filter(item => item.listId === list.id).map(filteredItem => (
+                                    {items.filter(item => item.listid === list.id).map(filteredItem => (
                                         <li key={filteredItem.id} className={filteredItem.active ? 'check-item': null}>{filteredItem.name}</li>
                                     ))}
                                 </ul>

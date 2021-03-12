@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Redirect } from 'react-router-dom';
+import config from './config';
 import TokenService from '../src/services/token-service';
 import './App.css';
 import Context from './Context';
@@ -18,100 +19,8 @@ class App extends Component {
         username: 'demo@demo.com',
         password: 'P@ssword1234',
     },
-    lists: [
-      {
-        id: 1,
-        name: 'List 1',
-        date: '01/01/2021',
-        userId: 1,
-      },
-      {
-        id: 2,
-        name: 'List 2',
-        date: '02/02/2021',
-        userId: 1,
-      },
-      {
-        id: 3,
-        name: 'List 3',
-        date: '03/03/2020',
-        userId: 1,
-      },
-    ],
-    items: [
-      {
-        id: 1,
-        name: 'Item  1',
-        listId: 1,
-        userId: 1,
-        active: false,
-        editItemActive: false,
-      },
-      {
-        id: 2,
-        name: 'Item  2',
-        listId: 1,
-        userId: 1,
-        active: false,
-        editItemActive: false,
-      },
-      {
-        id: 3,
-        name: 'Item  3',
-        listId: 1,
-        userId: 1,
-        active: false,
-        editItemActive: false,
-      },
-      {
-        id: 4,
-        name: 'Item  4',
-        listId: 2,
-        userId: 1,
-        active: false,
-        editItemActive: false,
-      },
-      {
-        id: 5,
-        name: 'Item  5',
-        listId: 2,
-        userId: 1,
-        active: false,
-        editItemActive: false,
-      },
-      {
-        id: 6,
-        name: 'Item  6',
-        listId: 2,
-        userId: 1,
-        active: false,
-        editItemActive: false,
-      },
-      {
-        id: 7,
-        name: 'Item  7',
-        listId: 3,
-        userId: 1,
-        active: false,
-        editItemActive: false,
-      },
-      {
-        id: 8,
-        name: 'Item  8',
-        listId: 3,
-        userId: 1,
-        active: false,
-        editItemActive: false,
-      },
-      {
-        id: 9,
-        name: 'Item  9',
-        listId: 3,
-        userId: 1,
-        active: false,
-        editItemActive: false,
-      }
-    ],
+    lists: [],
+    items: [],
   }
 
   /* In component did mount, with user that logged in, 
@@ -283,8 +192,30 @@ class App extends Component {
     //patch request to api
   }
 
+  componentDidMount() {
+    Promise.all([
+      fetch(config.API_BASE_URL + `lists/${this.state.user.id}`),
+      fetch(config.API_BASE_URL + `items/${this.state.user.id}`)
+    ])
+      .then(([listsRes, itemsRes]) => {
+        if (!listsRes.ok)
+          return listsRes.json().then(e => Promise.reject(e));
+        if (!itemsRes.ok)
+          return itemsRes.json().then(e => Promise.reject(e));
+
+        return Promise.all([listsRes.json(), itemsRes.json()])
+      })
+      .then(([lists, items]) => {
+        this.setState({lists, items});
+        console.log(items)
+      })
+      .catch(error => {
+        console.error({error});
+      })
+  }
+
   render() {
-    const value = {
+      const value = {
       user: this.state.user,
       lists: this.state.lists,
       items: this.state.items,
