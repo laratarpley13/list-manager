@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
-//import config from '../config';
+import config from '../config';
 import Context from '../Context';
 import TokenService from '../services/token-service';
 import './list.css';
 
 export default class List extends Component {
    static contextType = Context;
+
+   state = {
+       lists: [],
+       items: []
+   }
 
     /*if user !== targetUser, get request to 
     to api to grab user info for specific list 
@@ -19,13 +24,37 @@ export default class List extends Component {
         this.props.history.push('/')
     }
 
+    componentDidMount() {
+        Promise.all([
+            fetch(config.API_BASE_URL + `lists/${this.props.match.params.userId}`),
+            fetch(config.API_BASE_URL + `items/${this.props.match.params.userId}`)
+        ])
+            .then(([listsRes, itemsRes]) => {
+                if(!listsRes.ok)
+                    return listsRes.json().then(e => Promise.reject(e));
+                if(!itemsRes.ok)
+                    return itemsRes.json().then(e => Promise.reject(e));
+
+                return Promise.all([listsRes.json(), itemsRes.json()])
+            })
+            .then(([lists, items]) => {
+                this.setState({
+                    lists: lists,
+                    items: items
+                })
+                console.log(lists);
+                console.log(items);
+            })
+    }
+
     render() {
         const { user, lists, items } = this.context
 
         const targetUserId = parseInt(this.props.match.params.userId);
         const targetListId = parseInt(this.props.match.params.listId);
-        let targetList = lists.filter(list => list.id === targetListId);
+        let targetList = this.state.lists.filter(list => list.id === targetListId);
         targetList = targetList[0];
+        console.log(targetList)
 
         return (
             <div>
@@ -64,7 +93,7 @@ export default class List extends Component {
                         : null
                     }
                     <ul className="list-items">
-                        {items.filter(item => item.listid === targetListId).map(filteredItem => 
+                        {this.state.items.filter(item => item.listid === targetListId).map(filteredItem => 
                             <li key={filteredItem.id}>
                                 <h4 className={filteredItem.active ? 'check-item': null}>{filteredItem.name}</h4>
                                 {filteredItem.active
