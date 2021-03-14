@@ -30,98 +30,128 @@ class App extends Component {
 
   toggleClass = (selectedItem) => {
     const currentState = selectedItem.active;
+    console.log(config.API_BASE_URL + `items/${this.state.user.id}/${selectedItem.listid}/${selectedItem.id}`)
 
     const toggleSelectedItem = {
       id: selectedItem.id,
       name: selectedItem.name,
-      listId: selectedItem.listId,
+      listid: selectedItem.listid,
+      userid: selectedItem.userid,
       active: !currentState,
-      editItemActive: selectedItem.editItemActive,
+      edititemactive: selectedItem.edititemactive
     }
 
-    this.setState({
-      items: this.state.items.map(item => 
-        (item.id !== selectedItem.id) ? item : toggleSelectedItem)
+    fetch(config.API_BASE_URL + `items/${this.state.user.id}/${selectedItem.listid}/${selectedItem.id}`, {
+      method: 'PATCH',
+      body: JSON.stringify(toggleSelectedItem),
+      headers: {
+        'content-type': 'application/json'
+      }
     })
-
-    // patch request to api
+      .then(res => {
+        if(!res.ok) {
+          return res.json().then(error => { throw error })
+        }
+      })
+      .then(() => {
+        this.setState({
+          items: this.state.items.map(item => 
+            (item.id !== selectedItem.id) ? item : toggleSelectedItem)
+        })
+      })
+      .catch(error => {
+        console.error({error})
+      })
   }
 
   handleEditToggle = (selectedItem) => {
-    const currentState = selectedItem.editItemActive;
+    const currentState = selectedItem.edititemactive;
+
+    console.log(selectedItem); //debugging
 
     const toggleSelectedItem = {
       id: selectedItem.id,
       name: selectedItem.name,
-      listId: selectedItem.listId,
+      listid: selectedItem.listid,
       active: selectedItem.active,
-      editItemActive: !currentState,
+      edititemactive: !currentState,
     }
 
     this.setState({
       items: this.state.items.map(item => 
         (item.id !== selectedItem.id) ? item : toggleSelectedItem)
     })
-
-    //patch request to api
   }
 
   handleListAdd = (e) => {
     e.preventDefault();
     const newListName = e.target.name.value.trim();
-    //create date added
-    let today = new Date();
-    let dateAdded = (today.getMonth()+1) + '/' + today.getDate() + '/' + today.getFullYear();
-    //create new id
-    let newListId = 0
-    if(this.state.lists.length === 0) {
-      newListId = 1
-    } else {
-      let last = this.state.lists[this.state.lists.length - 1];
-      newListId = last.id + 1;
-    }
-    
     const list = {
-      id: newListId,
       name: newListName,
-      date: dateAdded,
+      userid: this.state.user.id,
     }
 
-    this.setState(
-      {
-        lists: [...this.state.lists, list]
+    fetch(config.API_BASE_URL + `lists`, {
+      method: 'POST',
+      body: JSON.stringify(list),
+      headers: {
+        'content-type': 'application/json'
       }
-    )
-
-    //post request to api
+    })
+      .then(res => {
+        if(!res.ok) {
+          return res.json().then(error => {
+            throw error
+          })
+        }
+        return res.json()
+      })
+      .then(data => {
+        console.log(data)
+        this.setState({
+          lists: [...this.state.lists, data]
+        })
+      })
+      .catch(error => {
+        console.error({error})
+      })
   }
 
   handleItemAdd = (e, newListId) => {
     e.preventDefault();
   
     const newItemName = e.target.name.value.trim();
-    //create new item id
-    let newItemId = 0;
-    if(this.state.items.length === 0) {
-      newItemId = 1;
-    } else {
-      let last = this.state.items[this.state.items.length - 1];
-      newItemId = last.id + 1;
-    }
-
+  
     const item = {
-      id: newItemId,
       name: newItemName,
-      listId: newListId,
-      active: false,
-      editItemActive: false,
+      listid: newListId,
+      userid: this.state.user.id,
     }
 
-    this.setState({
-      items: [...this.state.items, item]
+    fetch(config.API_BASE_URL + 'items/', {
+      method: 'POST',
+      body: JSON.stringify(item),
+      headers: {
+        'content-type': 'application/json',
+      }
     })
-
-    //post request to api
+      .then(res => {
+        if(!res.ok) {
+          return res.json().then(error => {
+            throw error
+          })
+        }
+        return res.json()
+      })
+      .then(data => {
+        console.log(data)
+        this.setState({
+          items: [...this.state.items, data]
+        })
+      })
+      .catch(error => {
+        console.error({error})
+      })
   }
 
   handleListEdit = (e, targetList) => {
@@ -131,15 +161,31 @@ class App extends Component {
     const editedList = {
       id: targetList.id,
       name: editedName,
-      date: targetList.date,
+      data: targetList.date,
+      userid: targetList.userid
     }
 
-    this.setState({
-      lists: this.state.lists.map(list => 
-        (list.id !== editedList.id) ? list : editedList)
+    fetch(config.API_BASE_URL + `lists/${this.state.user.id}/${targetList.id}`, {
+      method: 'PATCH',
+      body: JSON.stringify(editedList),
+      headers: {
+        'content-type': 'application/json'
+      }
     })
-
-    //patch request to api
+      .then(res => {
+        if(!res.ok) {
+          return res.json().then(error => { throw error })
+        }
+      })
+      .then(() => {
+        this.setState({
+          lists: this.state.lists.map(list => 
+            (list.id !== editedList.id) ? list : editedList)
+        })
+      })
+      .catch(error => {
+        console.error(error)
+      })
   }
 
   handleDeleteList = (targetListId) => {
@@ -147,29 +193,34 @@ class App extends Component {
       list.id !== targetListId
     )
 
-    const newItems = this.state.items.filter(item => 
-      item.listId !== targetListId
-    )
-
-    this.setState({
-      lists: newLists
+    this.setState({ lists: newLists }, () => {
+      fetch(config.API_BASE_URL + `lists/${this.state.user.id}/${targetListId}`, {
+        method: 'DELETE',
+        headers: {
+          'content-type': 'application/json'
+        }
+      }).then(res => res)
+      .catch(error => {
+        console.error({error});
+      })
     })
-    this.setState({
-      items: newItems
-    })
-
-    //delete request to api
   }
 
-  handleItemDelete = (targetItemId) => {
+  handleItemDelete = (targetItem) => {
     const newItems = this.state.items.filter(item => 
-      item.id !== targetItemId
+      item.id !== targetItem.id
     )
-    this.setState({
-      items: newItems
+    this.setState({ items: newItems }, () => {
+      fetch(config.API_BASE_URL + `items/${this.state.user.id}/${targetItem.listid}/${targetItem.id}`, {
+        method: 'DELETE',
+        headers: {
+          'content-type': 'application/json'
+        }
+      }).then(res => res)
+      .catch(error => {
+        console.error({error});
+      })
     })
-
-    //delete request to api
   }
 
   handleItemEdit = (e, targetItem) => {
@@ -179,17 +230,30 @@ class App extends Component {
     const editedItem = {
       id: targetItem.id,
       name: editedName,
-      listId: targetItem.listId,
+      listid: targetItem.listid,
+      userid: targetItem.userid,
       active: false,
-      editItemActive: false,
+      edititemactive: false,
     }
 
-    this.setState({
-      items: this.state.items.map(item => 
-        (item.id !== editedItem.id) ? item : editedItem)
+    fetch(config.API_BASE_URL + `items/${this.state.user.id}/${targetItem.listid}/${targetItem.id}`, {
+      method: 'PATCH',
+      body: JSON.stringify(editedItem),
+      headers: {
+        'content-type': 'application/json'
+      }
     })
-
-    //patch request to api
+      .then(res => {
+        if(!res.ok) {
+          return res.json().then(error => { throw error })
+        }
+      })
+      .then(() => {
+        this.setState({
+          items: this.state.items.map(item => 
+            (item.id !== editedItem.id) ? item : editedItem)
+        })
+      })
   }
 
   componentDidMount() {

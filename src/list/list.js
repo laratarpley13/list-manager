@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+//import config from '../config';
 import Context from '../Context';
 import TokenService from '../services/token-service';
 import './list.css';
 
 export default class List extends Component {
-    static contextType = Context;
+   static contextType = Context;
 
     /*if user !== targetUser, get request to 
     to api to grab user info for specific list 
@@ -22,7 +23,6 @@ export default class List extends Component {
         const { user, lists, items } = this.context
 
         const targetUserId = parseInt(this.props.match.params.userId);
-        console.log(targetUserId)
         const targetListId = parseInt(this.props.match.params.listId);
         let targetList = lists.filter(list => list.id === targetListId);
         targetList = targetList[0];
@@ -73,10 +73,10 @@ export default class List extends Component {
                                 }
                                 {(TokenService.hasAuthToken() && user.id === targetUserId)
                                     ? <><button onClick={() => this.props.handleEditToggle(filteredItem)}>Edit</button>
-                                      <button onClick={() => this.props.handleItemDelete(filteredItem.id)}>Delete</button></>
+                                      <button onClick={() => this.props.handleItemDelete(filteredItem)}>Delete</button></>
                                     : null
                                 }
-                                {filteredItem.editItemActive
+                                {filteredItem.edititemactive
                                     ?   <form onSubmit={e => {this.props.handleItemEdit(e, filteredItem)}}>
                                             <label htmlFor="name">Name:</label>
                                             <input type="text" id="name" name="name" defaultValue={filteredItem.name} />
