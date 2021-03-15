@@ -8,7 +8,12 @@ export default class List extends Component {
    static contextType = Context;
 
    state = {
-       list: {},
+       list: {
+           id: '',
+           name: '',
+           userid: '',
+           date: ','
+       },
        items: []
    }
 
@@ -174,10 +179,8 @@ export default class List extends Component {
 
         const targetUserId = parseInt(this.props.match.params.userId);
         const targetListId = parseInt(this.props.match.params.listId);
-        console.log(targetUserId) //debugging
-        console.log(targetListId) //debugging
         const targetList = this.state.list;
-        console.log(targetList)
+        console.log(targetList.date)
 
         return (
             <div>
@@ -191,7 +194,7 @@ export default class List extends Component {
                 </nav>
                 <section className='list-info'>
                     <h1>{targetList.name}</h1>
-                    <p>Date Created: {targetList.date}</p>
+                    <p>Date Created: {targetList.date.split("T")[0]}</p>
                     {(TokenService.hasAuthToken() && user.id === targetUserId)
                         ?   <div className="list-options">
                                 <button onClick={() => this.props.history.push(`/edit-list/${targetListId}`)}>Edit List</button>
