@@ -283,6 +283,7 @@ class App extends Component {
       user: this.state.user,
       lists: this.state.lists,
       items: this.state.items,
+      toggleClass: this.toggleClass, 
     }
     return (
       <Context.Provider value={value}>

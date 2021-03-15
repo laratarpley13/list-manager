@@ -8,8 +8,53 @@ export default class List extends Component {
    static contextType = Context;
 
    state = {
-       lists: [],
+       list: {},
        items: []
+   }
+
+   checkItem = (selectedItem) => {
+        const currentState = selectedItem.active;
+        const toggleSelectedItem = {
+            id: selectedItem.id,
+            name: selectedItem.name,
+            listid: selectedItem.listid,
+            userid: selectedItem.userid,
+            active: !currentState,
+            edititemactive: selectedItem.edititemactive
+        }
+
+       if (this.context.user.id === parseInt(this.props.match.params.userId)) {
+           console.log('handled in app component'); //debugging
+           this.context.toggleClass(selectedItem);
+           
+           this.setState({
+               items: this.state.items.map(item => 
+                (item.id !== selectedItem.id) ? item : toggleSelectedItem)
+           })
+       } else {
+           console.log('handled in list component'); //debugging
+           fetch(config.API_BASE_URL + `items/${selectedItem.userid}/${selectedItem.listid}/${selectedItem.id}`, {
+               method: 'PATCH',
+               body: JSON.stringify(toggleSelectedItem),
+               headers: {
+                   'content-type': 'application/json'
+               }
+           })
+               .then(res => {
+                   if(!res.ok) {
+                       return res.json().then(error => { throw error })
+                   }
+               })
+               .then(() => {
+                   this.setState({
+                       items: this.state.items.map(item => 
+                        (item.id !== selectedItem.id) ? item : toggleSelectedItem)
+                   })
+               })
+               .catch(error => {
+                   console.error({error})
+               })
+       }
    }
 
     /*if user !== targetUser, get request to 
@@ -26,7 +71,7 @@ export default class List extends Component {
 
     componentDidMount() {
         Promise.all([
-            fetch(config.API_BASE_URL + `lists/${this.props.match.params.userId}`),
+            fetch(config.API_BASE_URL + `lists/${this.props.match.params.userId}/${this.props.match.params.listId}`),
             fetch(config.API_BASE_URL + `items/${this.props.match.params.userId}`)
         ])
             .then(([listsRes, itemsRes]) => {
@@ -37,23 +82,24 @@ export default class List extends Component {
 
                 return Promise.all([listsRes.json(), itemsRes.json()])
             })
-            .then(([lists, items]) => {
+            .then(([list, items]) => {
                 this.setState({
-                    lists: lists,
+                    list: list,
                     items: items
                 })
-                console.log(lists);
+                console.log(list);
                 console.log(items);
             })
     }
 
     render() {
-        const { user, lists, items } = this.context
+        const { user } = this.context
 
         const targetUserId = parseInt(this.props.match.params.userId);
         const targetListId = parseInt(this.props.match.params.listId);
-        let targetList = this.state.lists.filter(list => list.id === targetListId);
-        targetList = targetList[0];
+        console.log(targetUserId) //debugging
+        console.log(targetListId) //debugging
+        const targetList = this.state.list;
         console.log(targetList)
 
         return (
@@ -97,8 +143,8 @@ export default class List extends Component {
                             <li key={filteredItem.id}>
                                 <h4 className={filteredItem.active ? 'check-item': null}>{filteredItem.name}</h4>
                                 {filteredItem.active
-                                    ? <button onClick={() => this.props.toggleClass(filteredItem)}>Un-Check</button>
-                                    : <button onClick={() => this.props.toggleClass(filteredItem)}>Check-Off</button>
+                                    ? <button onClick={() => this.checkItem(filteredItem)}>Un-Check</button>
+                                    : <button onClick={() => this.checkItem(filteredItem)}>Check-Off</button>
                                 }
                                 {(TokenService.hasAuthToken() && user.id === targetUserId)
                                     ? <><button onClick={() => this.props.handleEditToggle(filteredItem)}>Edit</button>
