@@ -64,25 +64,6 @@ class App extends Component {
       })
   }
 
-  handleEditToggle = (selectedItem) => {
-    const currentState = selectedItem.edititemactive;
-
-    console.log(selectedItem); //debugging
-
-    const toggleSelectedItem = {
-      id: selectedItem.id,
-      name: selectedItem.name,
-      listid: selectedItem.listid,
-      active: selectedItem.active,
-      edititemactive: !currentState,
-    }
-
-    this.setState({
-      items: this.state.items.map(item => 
-        (item.id !== selectedItem.id) ? item : toggleSelectedItem)
-    })
-  }
-
   handleListAdd = (e) => {
     e.preventDefault();
     const newListName = e.target.name.value.trim();
@@ -117,41 +98,12 @@ class App extends Component {
       })
   }
 
-  handleItemAdd = (e, newListId) => {
-    e.preventDefault();
-  
-    const newItemName = e.target.name.value.trim();
-  
-    const item = {
-      name: newItemName,
-      listid: newListId,
-      userid: this.state.user.id,
-    }
+  handleItemAdd = (newItem) => {
+    console.log('test'); //debugging
 
-    fetch(config.API_BASE_URL + 'items/', {
-      method: 'POST',
-      body: JSON.stringify(item),
-      headers: {
-        'content-type': 'application/json',
-      }
+    this.setState({
+      items: [...this.state.items, newItem]
     })
-      .then(res => {
-        if(!res.ok) {
-          return res.json().then(error => {
-            throw error
-          })
-        }
-        return res.json()
-      })
-      .then(data => {
-        console.log(data)
-        this.setState({
-          items: [...this.state.items, data]
-        })
-      })
-      .catch(error => {
-        console.error({error})
-      })
   }
 
   handleListEdit = (e, targetList) => {
@@ -207,6 +159,7 @@ class App extends Component {
   }
 
   handleItemDelete = (targetItem) => {
+    console.log('handle delete item in app component'); //debugging
     const newItems = this.state.items.filter(item => 
       item.id !== targetItem.id
     )
@@ -283,7 +236,10 @@ class App extends Component {
       user: this.state.user,
       lists: this.state.lists,
       items: this.state.items,
-      toggleClass: this.toggleClass, 
+      toggleClass: this.toggleClass,
+      handleItemEdit: this.handleItemEdit,
+      handleItemAdd: this.handleItemAdd,
+      handleItemDelete: this.handleItemDelete, 
     }
     return (
       <Context.Provider value={value}>

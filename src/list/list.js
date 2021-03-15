@@ -57,12 +57,89 @@ export default class List extends Component {
        }
    }
 
-    /*if user !== targetUser, get request to 
-    to api to grab user info for specific list 
+   toggleEdit = (selectedItem) => {
+       const currentState = selectedItem.edititemactive
 
-    patch request to toggle items complete if not
-    owner of the list?
-    */
+       const toggleSelectedItem = {
+           id: selectedItem.id,
+           name: selectedItem.name,
+           listid: selectedItem.listid,
+           active: selectedItem.active,
+           edititemactive: !currentState
+       }
+
+       this.setState({
+           items: this.state.items.map(item => 
+            (item.id !== selectedItem.id) ? item : toggleSelectedItem)
+       })
+   }
+
+   itemAdd = (e, newListId) => {
+       e.preventDefault();
+
+       const newItemName = e.target.name.value.trim();
+
+       const item = {
+           name: newItemName,
+           listid: newListId,
+           userid: this.context.user.id
+       }
+
+       fetch(config.API_BASE_URL + 'items/', {
+           method: 'POST',
+           body: JSON.stringify(item),
+           headers: {
+               'content-type' : 'application/json',
+           }
+       })
+            .then(res => {
+                if(!res.ok) {
+                    return res.json().then(error => {
+                        throw error
+                    })
+                }
+                return res.json()
+            })
+            .then(data => {
+                console.log(data) //debugging
+                this.context.handleItemAdd(data)
+                this.setState({
+                    items: [...this.state.items, data]
+                })
+            })
+            .catch(error => {
+                console.error({error})
+            })
+   }
+
+   itemEdit = (e, selectedItem) => {
+        e.preventDefault();
+        this.context.handleItemEdit(e, selectedItem)
+
+        const editedName = e.target.name.value.trim()
+        const editedItem = {
+            id: selectedItem.id,
+            name: editedName,
+            listid: selectedItem.listid,
+            userid: selectedItem.userid,
+            active: false,
+            edititemactive: false,
+        }
+
+        this.setState({
+            items: this.state.items.map(item => 
+                (item.id !== selectedItem.id) ? item : editedItem)
+        })
+   }
+
+    itemDelete = (selectedItem) => {
+        this.context.handleItemDelete(selectedItem)
+        const newItems = this.state.items.filter(item => 
+            item.id !== selectedItem.id
+        )
+
+        this.setState({ items: newItems })
+    }
 
     logout = () => {
         TokenService.clearAuthToken();
@@ -127,7 +204,7 @@ export default class List extends Component {
                     }
                     {(TokenService.hasAuthToken() && user.id === targetUserId)
                         ?  <form className='add-item' onSubmit={e => {
-                                this.props.handleItemAdd(e, targetListId);
+                                this.itemAdd(e, targetListId);
                                 e.target.reset();    
                             }}>
                                 <h3>Add Item</h3>
@@ -147,12 +224,12 @@ export default class List extends Component {
                                     : <button onClick={() => this.checkItem(filteredItem)}>Check-Off</button>
                                 }
                                 {(TokenService.hasAuthToken() && user.id === targetUserId)
-                                    ? <><button onClick={() => this.props.handleEditToggle(filteredItem)}>Edit</button>
-                                      <button onClick={() => this.props.handleItemDelete(filteredItem)}>Delete</button></>
+                                    ? <><button onClick={() => this.toggleEdit(filteredItem)}>Edit</button>
+                                      <button onClick={() => this.itemDelete(filteredItem)}>Delete</button></>
                                     : null
                                 }
                                 {filteredItem.edititemactive
-                                    ?   <form onSubmit={e => {this.props.handleItemEdit(e, filteredItem)}}>
+                                    ?   <form onSubmit={e => {this.itemEdit(e, filteredItem)}}>
                                             <label htmlFor="name">Name:</label>
                                             <input type="text" id="name" name="name" defaultValue={filteredItem.name} />
                                             <br />
