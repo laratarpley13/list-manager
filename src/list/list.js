@@ -223,12 +223,12 @@ export default class List extends Component {
                             <li key={filteredItem.id}>
                                 <h4 className={filteredItem.active ? 'check-item': null}>{filteredItem.name}</h4>
                                 {filteredItem.active
-                                    ? <button onClick={() => this.checkItem(filteredItem)}>Un-Check</button>
-                                    : <button onClick={() => this.checkItem(filteredItem)}>Check-Off</button>
+                                    ? <button onClick={() => this.checkItem(filteredItem)}><i class="fas fa-check-square"></i>Un-Check</button>
+                                    : <button onClick={() => this.checkItem(filteredItem)}><i class="fas fa-check-square"></i>Check-Off</button>
                                 }
                                 {(TokenService.hasAuthToken() && user.id === targetUserId)
-                                    ? <><button onClick={() => this.toggleEdit(filteredItem)}>Edit</button>
-                                      <button onClick={() => this.itemDelete(filteredItem)}>Delete</button></>
+                                    ? <><button onClick={() => this.toggleEdit(filteredItem)}><i className="fas fa-edit"></i>Edit</button>
+                                      <button onClick={() => this.itemDelete(filteredItem)}><i className="fas fa-trash-alt"></i>Delete</button></>
                                     : null
                                 }
                                 {filteredItem.edititemactive
