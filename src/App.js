@@ -15,9 +15,9 @@ import EditList from '../src/edit-list/edit-list.js';
 class App extends Component {
   state = {
     user: {
-        id: 1,
-        username: 'demo@demo.com',
-        password: 'P@ssword1234',
+        id: 2,
+        username: 'demo2@demo.com',
+        password: 'P@ssword456',
     },
     lists: [],
     items: [],

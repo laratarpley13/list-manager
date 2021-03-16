@@ -12,7 +12,7 @@ export default class List extends Component {
            id: '',
            name: '',
            userid: '',
-           date: ','
+           date: '',
        },
        items: []
    }
@@ -194,7 +194,7 @@ export default class List extends Component {
                 </nav>
                 <section className='list-info'>
                     <h1>{targetList.name}</h1>
-                    <p>Date Created: {targetList.date.split("T")[0]}</p>
+                    <p>Date Created: {targetList.date}</p>
                     {(TokenService.hasAuthToken() && user.id === targetUserId)
                         ?   <div className="list-options">
                                 <button onClick={() => this.props.history.push(`/edit-list/${targetListId}`)}>Edit List</button>
@@ -223,8 +223,8 @@ export default class List extends Component {
                             <li key={filteredItem.id}>
                                 <h4 className={filteredItem.active ? 'check-item': null}>{filteredItem.name}</h4>
                                 {filteredItem.active
-                                    ? <button onClick={() => this.checkItem(filteredItem)}><i class="fas fa-check-square"></i>Un-Check</button>
-                                    : <button onClick={() => this.checkItem(filteredItem)}><i class="fas fa-check-square"></i>Check-Off</button>
+                                    ? <button onClick={() => this.checkItem(filteredItem)}><i className="fas fa-check-square"></i>Un-Check</button>
+                                    : <button onClick={() => this.checkItem(filteredItem)}><i className="fas fa-check-square"></i>Check-Off</button>
                                 }
                                 {(TokenService.hasAuthToken() && user.id === targetUserId)
                                     ? <><button onClick={() => this.toggleEdit(filteredItem)}><i className="fas fa-edit"></i>Edit</button>
