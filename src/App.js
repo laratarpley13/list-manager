@@ -14,11 +14,7 @@ import EditList from '../src/edit-list/edit-list.js';
 
 class App extends Component {
   state = {
-    user: {
-        id: 2,
-        username: 'demo2@demo.com',
-        password: 'P@ssword456',
-    },
+    user: [],
     lists: [],
     items: [],
   }
@@ -210,25 +206,34 @@ class App extends Component {
   }
 
   componentDidMount() {
-    Promise.all([
-      fetch(config.API_BASE_URL + `lists/${this.state.user.id}`),
-      fetch(config.API_BASE_URL + `items/${this.state.user.id}`)
-    ])
-      .then(([listsRes, itemsRes]) => {
-        if (!listsRes.ok)
-          return listsRes.json().then(e => Promise.reject(e));
-        if (!itemsRes.ok)
-          return itemsRes.json().then(e => Promise.reject(e));
+    fetch(config.API_BASE_URL + `users`, {
+      method: 'GET'
+    }).then((userRes) => {
+      if(!userRes.ok){
+        return userRes.json().then(e => Promise.reject(e));
+      }
 
-        return Promise.all([listsRes.json(), itemsRes.json()])
-      })
-      .then(([lists, items]) => {
-        this.setState({lists, items});
-        console.log(items)
-      })
-      .catch(error => {
-        console.error({error});
-      })
+      return userRes.json()
+    }).then((userRes) => {
+      console.log(userRes)
+      this.setState({user: userRes})
+      return Promise.all([
+        fetch(config.API_BASE_URL + `lists/${this.state.user.id}`),
+        fetch(config.API_BASE_URL + `items/${this.state.user.id}`)
+      ])
+    }).then(([listsRes, itemsRes]) => {
+      if(!listsRes.ok)
+        return listsRes.json().then(e => Promise.reject(e));
+      if(!itemsRes.ok)
+        return itemsRes.json().then(e => Promise.reject(e));
+
+      return Promise.all([listsRes.json(), itemsRes.json()])
+    }).then(([lists, items]) => {
+      console.log(lists, items)
+      this.setState({lists, items})
+    }).catch(error => {
+      console.error({error});
+    })
   }
 
   render() {
