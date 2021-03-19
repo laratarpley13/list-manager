@@ -11,10 +11,12 @@ import CreateList from '../src/create-list/create-list.js';
 import Dashboard from '../src/dashboard/dashboard.js';
 import List from '../src/list/list.js';
 import EditList from '../src/edit-list/edit-list.js';
+import tokenService from '../src/services/token-service';
 
 class App extends Component {
   state = {
-    user: [],
+    token: "",
+    user: {},
     lists: [],
     items: [],
   }
@@ -23,6 +25,30 @@ class App extends Component {
   get user information and corresponding lists and items, 
   and save to state
   */
+  setLists = (newLists) => {
+    console.log("set lists") //debugging
+    this.setState({
+      lists: newLists
+    })
+  }
+
+  setItems = (newItems) => {
+    console.log("set items") //debugging
+    this.setState({
+      items: newItems
+    })
+  }
+
+  setUser = (newUser) => {
+    console.log("set users") //debugging
+    this.setState({
+      user: newUser
+    })
+  }
+
+  handleAuthToken = (setToken) => {
+    this.setState({token: setToken})
+  }
 
   toggleClass = (selectedItem) => {
     const currentState = selectedItem.active;
@@ -68,10 +94,13 @@ class App extends Component {
       userid: this.state.user.id,
     }
 
+    console.log(tokenService.hasAuthToken)
+
     fetch(config.API_BASE_URL + `lists`, {
       method: 'POST',
       body: JSON.stringify(list),
       headers: {
+        'authorization': `bearer ${this.state.token}`,
         'content-type': 'application/json'
       }
     })
@@ -117,6 +146,7 @@ class App extends Component {
       method: 'PATCH',
       body: JSON.stringify(editedList),
       headers: {
+        'authorization': `bearer ${this.state.token}`,
         'content-type': 'application/json'
       }
     })
@@ -145,7 +175,8 @@ class App extends Component {
       fetch(config.API_BASE_URL + `lists/${this.state.user.id}/${targetListId}`, {
         method: 'DELETE',
         headers: {
-          'content-type': 'application/json'
+          'content-type': 'application/json',
+          'authorization': `bearer ${this.state.token}`
         }
       }).then(res => res)
       .catch(error => {
@@ -163,6 +194,7 @@ class App extends Component {
       fetch(config.API_BASE_URL + `items/${this.state.user.id}/${targetItem.listid}/${targetItem.id}`, {
         method: 'DELETE',
         headers: {
+          'authorization': `bearer ${this.state.token}`,
           'content-type': 'application/json'
         }
       }).then(res => res)
@@ -205,39 +237,9 @@ class App extends Component {
       })
   }
 
-  componentDidMount() {
-    fetch(config.API_BASE_URL + `users`, {
-      method: 'GET'
-    }).then((userRes) => {
-      if(!userRes.ok){
-        return userRes.json().then(e => Promise.reject(e));
-      }
-
-      return userRes.json()
-    }).then((userRes) => {
-      console.log(userRes)
-      this.setState({user: userRes})
-      return Promise.all([
-        fetch(config.API_BASE_URL + `lists/${this.state.user.id}`),
-        fetch(config.API_BASE_URL + `items/${this.state.user.id}`)
-      ])
-    }).then(([listsRes, itemsRes]) => {
-      if(!listsRes.ok)
-        return listsRes.json().then(e => Promise.reject(e));
-      if(!itemsRes.ok)
-        return itemsRes.json().then(e => Promise.reject(e));
-
-      return Promise.all([listsRes.json(), itemsRes.json()])
-    }).then(([lists, items]) => {
-      console.log(lists, items)
-      this.setState({lists, items})
-    }).catch(error => {
-      console.error({error});
-    })
-  }
-
   render() {
       const value = {
+      token: this.state.token,
       user: this.state.user,
       lists: this.state.lists,
       items: this.state.items,
@@ -267,6 +269,10 @@ class App extends Component {
             render={(props) => 
               <SignIn 
                 {...props}
+                setLists={this.setLists}
+                setItems={this.setItems}
+                setUser={this.setUser}
+                handleAuthToken={this.handleAuthToken}
               />
             } 
           />
@@ -292,6 +298,9 @@ class App extends Component {
               TokenService.hasAuthToken()
                 ? <Dashboard 
                     {...props}
+                    setLists={this.setLists}
+                    setItems={this.setItems}
+                    setUser={this.setUser}
                   />
                 : <Redirect 
                     to={{

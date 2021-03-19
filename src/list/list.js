@@ -94,6 +94,7 @@ export default class List extends Component {
            method: 'POST',
            body: JSON.stringify(item),
            headers: {
+               'authorization': `bearer ${this.context.token}`,
                'content-type' : 'application/json',
            }
        })
@@ -194,7 +195,7 @@ export default class List extends Component {
                 </nav>
                 <section className='list-info'>
                     <h1>{targetList.name}</h1>
-                    <p>Date Created: {targetList.date}</p>
+                    <p>Date Created: {targetList.date.split("T")[0]}</p>
                     {(TokenService.hasAuthToken() && user.id === targetUserId)
                         ?   <div className="list-options">
                                 <button onClick={() => this.props.history.push(`/edit-list/${targetListId}`)}>Edit List</button>
@@ -222,11 +223,11 @@ export default class List extends Component {
                         {this.state.items.filter(item => item.listid === targetListId).map(filteredItem => 
                             <li key={filteredItem.id}>
                                 <h4 className={filteredItem.active ? 'check-item': null}>{filteredItem.name}</h4>
-                                {filteredItem.active
+                                {filteredItem.active && !filteredItem.edititemactive
                                     ? <button onClick={() => this.checkItem(filteredItem)}><i className="fas fa-check-square"></i>Un-Check</button>
                                     : <button onClick={() => this.checkItem(filteredItem)}><i className="fas fa-check-square"></i>Check-Off</button>
                                 }
-                                {(TokenService.hasAuthToken() && user.id === targetUserId)
+                                {(TokenService.hasAuthToken() && user.id === targetUserId && !filteredItem.edititemactive)
                                     ? <><button onClick={() => this.toggleEdit(filteredItem)}><i className="fas fa-edit"></i>Edit</button>
                                       <button onClick={() => this.itemDelete(filteredItem)}><i className="fas fa-trash-alt"></i>Delete</button></>
                                     : null

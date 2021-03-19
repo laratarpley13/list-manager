@@ -1,5 +1,7 @@
 import config from "../config";
+import TokenService from "./token-service";
 
+/* eslint import/no-anonymous-default-export: [2, {"allowObject": true}] */
 export default {
     postUser(user) {
         return fetch(`${config.API_BASE_URL}users`, {
@@ -23,4 +25,14 @@ export default {
             !res.ok ? res.json().then((e) => Promise.reject(e)) : res.json()
         );
     },
+    getUser() {
+        return fetch(config.API_BASE_URL + `users`, {
+            method: 'GET',
+            headers: {
+                'authorization': `bearer ${TokenService.hasAuthToken}`
+            },
+        }).then((res) => 
+            !res.ok ? res.json().then((e) => Promise.reject(e)) : res.json()
+        )
+    }
 };

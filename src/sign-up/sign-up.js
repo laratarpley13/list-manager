@@ -11,19 +11,24 @@ export default class SignUp extends Component {
     handleSubmit = e => {
         e.preventDefault();
         const { newUsername, newPassword, confirmPassword } = e.target;
+        console.log(newPassword.value === confirmPassword.value) //debugging
         this.setState({ error: null })
-        AuthAPIService.postUser({
-            email: newUsername.value,
-            password: newPassword.value,
-        }).then(user => {
-            this.props.history.push('/sign-in')
-        }).catch((res) => {
-            if(res.message.includes('duplicate key')){
-                this.setState({error:'That email already exists'});
-            } else {
-                this.setState({ error: res.message });
-            }
-        })
+        if (newPassword.value !== confirmPassword.value) {
+            this.setState({ error: "Passwords do not match"})
+        } else {
+            AuthAPIService.postUser({
+                email: newUsername.value,
+                password: newPassword.value,
+            }).then(user => {
+                this.props.history.push('/sign-in')
+            }).catch((res) => {
+                if(res.message.includes('duplicate key')){
+                    this.setState({error:'That email already exists'});
+                } else {
+                    this.setState({ error: res.message });
+                }
+            })
+        }
     }
 
     render() {

@@ -25,17 +25,18 @@ export default class Dashboard extends Component {
                     <h1>Dashboard</h1>
                     <div className="lists">
                         {lists.map((list) => 
-                            <div key={list.id} className="list-preview">
+                            <div key={list.id} className="list-preview" onClick={() => this.props.history.push(`/list/${user.id}/${list.id}`)}>
                                 <h3>{list.name}</h3>
                                 {/* <p>Date Created: {list.date}</p> */}
-                                <button onClick={() => this.props.history.push(`/list/${user.id}/${list.id}`)}>View</button>
-                                <button onClick={() => 
+                               {/*  <button onClick={() => this.props.history.push(`/list/${user.id}/${list.id}`)}>View</button> */}
+                                <button onClick={(e) => 
                                     {
+                                        e.stopPropagation()
                                         navigator.clipboard.writeText(`http://localhost:3000/list/${user.id}/${list.id}`);
                                         alert('A shareable link has been copied to your clipboard.')
                                     }
                                     
-                                }>Share</button>
+                                }><i className="fas fa-external-link-alt"></i>Share</button>
                                 <ul>
                                     {items.filter(item => item.listid === list.id).map(filteredItem => (
                                         <li key={filteredItem.id} className={filteredItem.active ? 'check-item': null}>{filteredItem.name}</li>

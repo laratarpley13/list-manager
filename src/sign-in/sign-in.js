@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import config from '../config';
 import AuthAPIService from '../services/auth-api-service';
 import TokenService from '../services/token-service';
 import './sign-in.css';
@@ -19,6 +20,50 @@ export default class SignIn extends Component {
         }
         AuthAPIService.signinUser(user).then(signinResponse => {
             TokenService.saveAuthToken(signinResponse.authToken)
+            this.props.handleAuthToken(signinResponse.authToken)
+            fetch(`${config.API_BASE_URL}lists`, {
+                method: 'GET',
+                headers: {
+                    'authorization': `bearer ${signinResponse.authToken}`
+                }
+            }).then((listRes) => {
+                if(!listRes.ok){
+                    return listRes.json().then(e => Promise.reject(e))
+                }
+                return listRes.json()
+            }).then((listRes) => {
+                console.log(listRes) //debugging
+                this.props.setLists(listRes)
+                fetch(`${config.API_BASE_URL}items`, {
+                    method: 'GET',
+                    headers: {
+                        'authorization' : `bearer ${signinResponse.authToken}`
+                    }
+                }).then((itemRes) => {
+                    if(!itemRes.ok){
+                        return itemRes.json().then(e => Promise.reject(e))
+                    }
+                    return itemRes.json()
+                }).then((itemRes) => {
+                    console.log(itemRes) //debugging
+                    this.props.setItems(itemRes)
+                    fetch(`${config.API_BASE_URL}users`, {
+                        method: 'GET',
+                        headers: {
+                            'authorization' : `bearer ${signinResponse.authToken}`
+                        }
+                    }).then((userRes) => {
+                        if(!userRes.ok){
+                            return userRes.json().then(e => Promise.reject(e))
+                        }
+                        return userRes.json()
+                    }).then((userRes) => {
+                        console.log(userRes) //debugging
+                        this.props.setUser(userRes)
+                    })
+                })
+            })
+            // fetch to get users lists {Authorization: `Bearer ${signinResponse.authToken}`}
             this.props.history.push('/dashboard');
         }).catch((res) => {
             this.setState({ error: res.message });
