@@ -32,7 +32,7 @@ export default class Dashboard extends Component {
                                 <button onClick={(e) => 
                                     {
                                         e.stopPropagation()
-                                        navigator.clipboard.writeText(`http://localhost:3000/list/${user.id}/${list.id}`);
+                                        navigator.clipboard.writeText(`https://list-manager.vercel.app/list/${user.id}/${list.id}`);
                                         alert('A shareable link has been copied to your clipboard.')
                                     }
                                     
