@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import config from '../config';
+//import config from '../config';
 import AuthAPIService from '../services/auth-api-service';
 import TokenService from '../services/token-service';
 import './sign-in.css';
@@ -21,7 +21,7 @@ export default class SignIn extends Component {
         AuthAPIService.signinUser(user).then(signinResponse => {
             TokenService.saveAuthToken(signinResponse.authToken)
             this.props.handleAuthToken(signinResponse.authToken)
-            fetch(`${config.API_BASE_URL}lists`, {
+            fetch(`https://mighty-taiga-07413.herokuapp.com/api/lists`, {
                 method: 'GET',
                 headers: {
                     'authorization': `bearer ${signinResponse.authToken}`
@@ -32,9 +32,8 @@ export default class SignIn extends Component {
                 }
                 return listRes.json()
             }).then((listRes) => {
-                console.log(listRes) //debugging
                 this.props.setLists(listRes)
-                fetch(`${config.API_BASE_URL}items`, {
+                fetch(`https://mighty-taiga-07413.herokuapp.com/api/items`, {
                     method: 'GET',
                     headers: {
                         'authorization' : `bearer ${signinResponse.authToken}`
@@ -47,7 +46,7 @@ export default class SignIn extends Component {
                 }).then((itemRes) => {
                     console.log(itemRes) //debugging
                     this.props.setItems(itemRes)
-                    fetch(`${config.API_BASE_URL}users`, {
+                    fetch(`https://mighty-taiga-07413.herokuapp.com/api/users`, {
                         method: 'GET',
                         headers: {
                             'authorization' : `bearer ${signinResponse.authToken}`

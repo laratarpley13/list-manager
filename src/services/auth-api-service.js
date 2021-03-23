@@ -1,10 +1,10 @@
-import config from "../config";
+//import config from "../config";
 import TokenService from "./token-service";
 
 /* eslint import/no-anonymous-default-export: [2, {"allowObject": true}] */
 export default {
     postUser(user) {
-        return fetch(`${config.API_BASE_URL}users`, {
+        return fetch(`https://mighty-taiga-07413.herokuapp.com/api/users`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -15,7 +15,7 @@ export default {
         );
     },
     signinUser(user) {
-        return fetch(`${config.API_BASE_URL}auth/signin`, {
+        return fetch(`https://mighty-taiga-07413.herokuapp.com/api/auth/signin`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -26,7 +26,7 @@ export default {
         );
     },
     getUser() {
-        return fetch(config.API_BASE_URL + `users`, {
+        return fetch(`https://mighty-taiga-07413.herokuapp.com/api/users`, {
             method: 'GET',
             headers: {
                 'authorization': `bearer ${TokenService.hasAuthToken}`

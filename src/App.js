@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import config from './config';
+//import config from './config';
 import TokenService from '../src/services/token-service';
 import './App.css';
 import Context from './Context';
@@ -52,7 +52,7 @@ class App extends Component {
 
   toggleClass = (selectedItem) => {
     const currentState = selectedItem.active;
-    console.log(config.API_BASE_URL + `items/${this.state.user.id}/${selectedItem.listid}/${selectedItem.id}`)
+    //console.log(`https://mighty-taiga-07413.herokuapp.com/api/${this.state.user.id}/${selectedItem.listid}/${selectedItem.id}`)
 
     const toggleSelectedItem = {
       id: selectedItem.id,
@@ -63,7 +63,7 @@ class App extends Component {
       edititemactive: selectedItem.edititemactive
     }
 
-    fetch(config.API_BASE_URL + `items/${this.state.user.id}/${selectedItem.listid}/${selectedItem.id}`, {
+    fetch(`https://mighty-taiga-07413.herokuapp.com/api/items/${this.state.user.id}/${selectedItem.listid}/${selectedItem.id}`, {
       method: 'PATCH',
       body: JSON.stringify(toggleSelectedItem),
       headers: {
@@ -96,7 +96,7 @@ class App extends Component {
 
     console.log(tokenService.hasAuthToken)
 
-    fetch(config.API_BASE_URL + `lists`, {
+    fetch(`https://mighty-taiga-07413.herokuapp.com/api/lists`, {
       method: 'POST',
       body: JSON.stringify(list),
       headers: {
@@ -142,7 +142,7 @@ class App extends Component {
       userid: targetList.userid
     }
 
-    fetch(config.API_BASE_URL + `lists/${this.state.user.id}/${targetList.id}`, {
+    fetch(`https://mighty-taiga-07413.herokuapp.com/api/${this.state.user.id}/${targetList.id}`, {
       method: 'PATCH',
       body: JSON.stringify(editedList),
       headers: {
@@ -172,7 +172,7 @@ class App extends Component {
     )
 
     this.setState({ lists: newLists }, () => {
-      fetch(config.API_BASE_URL + `lists/${this.state.user.id}/${targetListId}`, {
+      fetch(`https://mighty-taiga-07413.herokuapp.com/api/${this.state.user.id}/${targetListId}`, {
         method: 'DELETE',
         headers: {
           'content-type': 'application/json',
@@ -191,7 +191,7 @@ class App extends Component {
       item.id !== targetItem.id
     )
     this.setState({ items: newItems }, () => {
-      fetch(config.API_BASE_URL + `items/${this.state.user.id}/${targetItem.listid}/${targetItem.id}`, {
+      fetch(`https://mighty-taiga-07413.herokuapp.com/api/${this.state.user.id}/${targetItem.listid}/${targetItem.id}`, {
         method: 'DELETE',
         headers: {
           'authorization': `bearer ${this.state.token}`,
@@ -217,7 +217,7 @@ class App extends Component {
       edititemactive: false,
     }
 
-    fetch(config.API_BASE_URL + `items/${this.state.user.id}/${targetItem.listid}/${targetItem.id}`, {
+    fetch(`https://mighty-taiga-07413.herokuapp.com/api/${this.state.user.id}/${targetItem.listid}/${targetItem.id}`, {
       method: 'PATCH',
       body: JSON.stringify(editedItem),
       headers: {

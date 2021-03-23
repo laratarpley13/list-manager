@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import config from '../config';
+//import config from '../config';
 import Context from '../Context';
 import TokenService from '../services/token-service';
 import './list.css';
@@ -38,7 +38,7 @@ export default class List extends Component {
            })
        } else {
            console.log('handled in list component'); //debugging
-           fetch(config.API_BASE_URL + `items/${selectedItem.userid}/${selectedItem.listid}/${selectedItem.id}`, {
+           fetch(`https://mighty-taiga-07413.herokuapp.com/api/${selectedItem.userid}/${selectedItem.listid}/${selectedItem.id}`, {
                method: 'PATCH',
                body: JSON.stringify(toggleSelectedItem),
                headers: {
@@ -90,7 +90,7 @@ export default class List extends Component {
            userid: this.context.user.id
        }
 
-       fetch(config.API_BASE_URL + 'items/', {
+       fetch('https://mighty-taiga-07413.herokuapp.com/api/items/', {
            method: 'POST',
            body: JSON.stringify(item),
            headers: {
@@ -154,8 +154,8 @@ export default class List extends Component {
 
     componentDidMount() {
         Promise.all([
-            fetch(config.API_BASE_URL + `lists/${this.props.match.params.userId}/${this.props.match.params.listId}`),
-            fetch(config.API_BASE_URL + `items/${this.props.match.params.userId}`)
+            fetch(`https://mighty-taiga-07413.herokuapp.com/api/lists/${this.props.match.params.userId}/${this.props.match.params.listId}`),
+            fetch(`https://mighty-taiga-07413.herokuapp.com/api/items/${this.props.match.params.userId}`)
         ])
             .then(([listsRes, itemsRes]) => {
                 if(!listsRes.ok)
