@@ -38,7 +38,7 @@ export default class List extends Component {
            })
        } else {
            console.log('handled in list component'); //debugging
-           fetch(`https://mighty-taiga-07413.herokuapp.com/api/${selectedItem.userid}/${selectedItem.listid}/${selectedItem.id}`, {
+           fetch(`https://mighty-taiga-07413.herokuapp.com/api/items/${selectedItem.userid}/${selectedItem.listid}/${selectedItem.id}`, {
                method: 'PATCH',
                body: JSON.stringify(toggleSelectedItem),
                headers: {
