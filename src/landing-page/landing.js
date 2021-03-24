@@ -12,7 +12,7 @@ export default class Landing extends Component {
                 </header>
                 <section className='landing-page'>
                     <h1>Organize, Share, and Manage Your Lists</h1>
-                    <p>How it works: Get a preview of all your lists and items, create new lists, add items within a list, cross of items as you complete them, and share a list with a friend to help you complete your tasks and goals.</p>
+                    <p>How it works: Get a preview of all your lists and items, create new lists, add items within a list, cross off items as you complete them, and share a list with a friend to help you complete your tasks and goals.</p>
                 </section>
             </div>
         )
