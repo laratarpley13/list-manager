@@ -28,7 +28,6 @@ header, .sign-up-form {
   }
 
   form {
-    border-color: black;
     border-radius: 2px;
     box-shadow: 10px 5px 5px lightgray;
   }

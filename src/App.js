@@ -100,7 +100,7 @@ class App extends Component {
       method: 'POST',
       body: JSON.stringify(list),
       headers: {
-        'authorization': `bearer ${this.state.token}`,
+        'authorization': `bearer ${TokenService.getAuthToken()}`,
         'content-type': 'application/json'
       }
     })
@@ -146,7 +146,7 @@ class App extends Component {
       method: 'PATCH',
       body: JSON.stringify(editedList),
       headers: {
-        'authorization': `bearer ${this.state.token}`,
+        'authorization': `bearer ${TokenService.getAuthToken()}`,
         'content-type': 'application/json'
       }
     })
@@ -176,7 +176,7 @@ class App extends Component {
         method: 'DELETE',
         headers: {
           'content-type': 'application/json',
-          'authorization': `bearer ${this.state.token}`
+          'authorization': `bearer ${TokenService.getAuthToken()}`
         }
       }).then(res => res)
       .catch(error => {
@@ -194,7 +194,7 @@ class App extends Component {
       fetch(`https://mighty-taiga-07413.herokuapp.com/api/items/${this.state.user.id}/${targetItem.listid}/${targetItem.id}`, {
         method: 'DELETE',
         headers: {
-          'authorization': `bearer ${this.state.token}`,
+          'authorization': `bearer ${TokenService.getAuthToken()}`,
           'content-type': 'application/json'
         }
       }).then(res => res)
@@ -235,6 +235,50 @@ class App extends Component {
             (item.id !== editedItem.id) ? item : editedItem)
         })
       })
+  }
+
+  componentDidMount() {
+    if (TokenService.getAuthToken()) {
+      fetch(`https://mighty-taiga-07413.herokuapp.com/api/lists`, {
+        method: 'GEt',
+        headers: {
+          'authorization': `bearer ${TokenService.getAuthToken()}`
+        }
+      }).then((listRes) => {
+        if(!listRes.ok){
+          return listRes.json().then(e => Promise.reject(e))
+        }
+        return listRes.json()
+      }).then((listRes) => {
+        this.setLists(listRes)
+        fetch(`https://mighty-taiga-07413.herokuapp.com/api/items`, {
+          method: 'GET',
+          headers: {
+            'authorization': `bearer ${tokenService.getAuthToken()}`
+          }
+        }).then((itemRes) => {
+          if(!itemRes.ok){
+            return itemRes.json().then(e => Promise.reject(e))
+          }
+          return itemRes.json()
+        }).then((itemRes) => {
+          this.setItems(itemRes)
+          fetch(`https://mighty-taiga-07413.herokuapp.com/api/users`, {
+            method: 'GET',
+            headers: {
+              'authorization': `bearer ${tokenService.getAuthToken()}`
+            }
+          }).then((userRes) => {
+            if(!userRes.ok){
+              return userRes.json().then(e => Promise.reject(e))
+            }
+            return userRes.json()
+          }).then((userRes) => {
+            this.setUser(userRes)
+          })
+        })
+      })
+    }
   }
 
   render() {

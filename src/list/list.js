@@ -94,7 +94,7 @@ export default class List extends Component {
            method: 'POST',
            body: JSON.stringify(item),
            headers: {
-               'authorization': `bearer ${this.context.token}`,
+               'authorization': `bearer ${TokenService.getAuthToken()}`,
                'content-type' : 'application/json',
            }
        })
