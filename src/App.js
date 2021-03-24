@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Route, Redirect } from 'react-router-dom';
-//import config from './config';
 import TokenService from '../src/services/token-service';
 import './App.css';
 import Context from './Context';
@@ -21,26 +20,19 @@ class App extends Component {
     items: [],
   }
 
-  /* In component did mount, with user that logged in, 
-  get user information and corresponding lists and items, 
-  and save to state
-  */
   setLists = (newLists) => {
-    console.log("set lists") //debugging
     this.setState({
       lists: newLists
     })
   }
 
   setItems = (newItems) => {
-    console.log("set items") //debugging
     this.setState({
       items: newItems
     })
   }
 
   setUser = (newUser) => {
-    console.log("set users") //debugging
     this.setState({
       user: newUser
     })
@@ -52,7 +44,6 @@ class App extends Component {
 
   toggleClass = (selectedItem) => {
     const currentState = selectedItem.active;
-    //console.log(`https://mighty-taiga-07413.herokuapp.com/api/${this.state.user.id}/${selectedItem.listid}/${selectedItem.id}`)
 
     const toggleSelectedItem = {
       id: selectedItem.id,
@@ -94,8 +85,6 @@ class App extends Component {
       userid: this.state.user.id,
     }
 
-    console.log(tokenService.hasAuthToken)
-
     fetch(`https://mighty-taiga-07413.herokuapp.com/api/lists`, {
       method: 'POST',
       body: JSON.stringify(list),
@@ -113,7 +102,6 @@ class App extends Component {
         return res.json()
       })
       .then(data => {
-        console.log(data)
         this.setState({
           lists: [...this.state.lists, data]
         })
@@ -124,8 +112,6 @@ class App extends Component {
   }
 
   handleItemAdd = (newItem) => {
-    console.log('test'); //debugging
-
     this.setState({
       items: [...this.state.items, newItem]
     })
@@ -186,7 +172,6 @@ class App extends Component {
   }
 
   handleItemDelete = (targetItem) => {
-    console.log('handle delete item in app component'); //debugging
     const newItems = this.state.items.filter(item => 
       item.id !== targetItem.id
     )

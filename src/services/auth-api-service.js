@@ -1,4 +1,3 @@
-//import config from "../config";
 import TokenService from "./token-service";
 
 /* eslint import/no-anonymous-default-export: [2, {"allowObject": true}] */

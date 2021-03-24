@@ -7,11 +7,9 @@ export default class SignUp extends Component {
         error: null,
     };
 
-    //set up authentication in the back-end
     handleSubmit = e => {
         e.preventDefault();
         const { newUsername, newPassword, confirmPassword } = e.target;
-        console.log(newPassword.value === confirmPassword.value) //debugging
         this.setState({ error: null })
         if (newPassword.value !== confirmPassword.value) {
             this.setState({ error: "Passwords do not match"})

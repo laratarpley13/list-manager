@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-//import config from '../config';
 import Context from '../Context';
 import TokenService from '../services/token-service';
 import './list.css';
@@ -29,7 +28,6 @@ export default class List extends Component {
         }
 
        if (this.context.user.id === parseInt(this.props.match.params.userId)) {
-           console.log('handled in app component'); //debugging
            this.context.toggleClass(selectedItem);
            
            this.setState({
@@ -37,7 +35,6 @@ export default class List extends Component {
                 (item.id !== selectedItem.id) ? item : toggleSelectedItem)
            })
        } else {
-           console.log('handled in list component'); //debugging
            fetch(`https://mighty-taiga-07413.herokuapp.com/api/items/${selectedItem.userid}/${selectedItem.listid}/${selectedItem.id}`, {
                method: 'PATCH',
                body: JSON.stringify(toggleSelectedItem),
@@ -107,7 +104,6 @@ export default class List extends Component {
                 return res.json()
             })
             .then(data => {
-                console.log(data) //debugging
                 this.context.handleItemAdd(data)
                 this.setState({
                     items: [...this.state.items, data]
@@ -170,8 +166,6 @@ export default class List extends Component {
                     list: list,
                     items: items
                 })
-                console.log(list);
-                console.log(items);
             })
     }
 
@@ -181,7 +175,6 @@ export default class List extends Component {
         const targetUserId = parseInt(this.props.match.params.userId);
         const targetListId = parseInt(this.props.match.params.listId);
         const targetList = this.state.list;
-        console.log(targetList.date)
 
         return (
             <div>

@@ -27,8 +27,6 @@ export default class Dashboard extends Component {
                         {lists.map((list) => 
                             <div key={list.id} className="list-preview" onClick={() => this.props.history.push(`/list/${user.id}/${list.id}`)}>
                                 <h3>{list.name}</h3>
-                                {/* <p>Date Created: {list.date}</p> */}
-                               {/*  <button onClick={() => this.props.history.push(`/list/${user.id}/${list.id}`)}>View</button> */}
                                 <div className="button" onClick={(e) => 
                                     {
                                         e.stopPropagation()

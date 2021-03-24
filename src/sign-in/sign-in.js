@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-//import config from '../config';
 import AuthAPIService from '../services/auth-api-service';
 import TokenService from '../services/token-service';
 import './sign-in.css';
 
 export default class SignIn extends Component {
-    //set up authentication in the back end
     state = {
         error: null,
     };
@@ -44,7 +42,6 @@ export default class SignIn extends Component {
                     }
                     return itemRes.json()
                 }).then((itemRes) => {
-                    console.log(itemRes) //debugging
                     this.props.setItems(itemRes)
                     fetch(`https://mighty-taiga-07413.herokuapp.com/api/users`, {
                         method: 'GET',
@@ -57,12 +54,10 @@ export default class SignIn extends Component {
                         }
                         return userRes.json()
                     }).then((userRes) => {
-                        console.log(userRes) //debugging
                         this.props.setUser(userRes)
                     })
                 })
             })
-            // fetch to get users lists {Authorization: `Bearer ${signinResponse.authToken}`}
             this.props.history.push('/dashboard');
         }).catch((res) => {
             this.setState({ error: res.message });

@@ -1,56 +1,56 @@
 header, .sign-in-form {
-    padding: 20px;
-  }
+  padding: 20px;
+}
   
-  header {
-    color: white;
-    background-color: #3277b3;
-  }
-  
-  header h3 {
-    padding: 20px;
-    font-size: 22px;
-  }
-  
-  header button {
-    padding: 10px;
-    margin-left: 10px;
-    margin-right: 10px;
-    border: 0px;
-    border-radius: 5px;
-    background-color: lightgray;
-  }
-  
-  .sign-in-form h1 {
-    padding: 20px;
-    font-size: 22px;
-    color: #3277b3;
-  }
+header {
+  color: white;
+  background-color: #3277b3;
+}
 
-  form {
-    border-color: black;
-    border-radius: 2px;
-    box-shadow: 10px 5px 5px lightgray;
-  }
-  
-  form * {
-    margin: 20px;
-  }
+header h3 {
+  padding: 20px;
+  font-size: 22px;
+}
 
-  form input {
-    padding: 5px;
-  }
+header button {
+  padding: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+  border: 0px;
+  border-radius: 5px;
+  background-color: lightgray;
+}
 
-  .submit-button {
-    padding: 10px;
-    margin-left: 10px;
-    margin-right: 10px;
-    border: 0px;
-    border-radius: 5px;
-    background-color: lightgray;
-  }
+.sign-in-form h1 {
+  padding: 20px;
+  font-size: 22px;
+  color: #3277b3;
+}
 
-  .error {
-    color: red;
-    font-size: 17px;
-  }
+form {
+  border-color: black;
+  border-radius: 2px;
+  box-shadow: 10px 5px 5px lightgray;
+}
+
+form * {
+  margin: 20px;
+}
+
+form input {
+  padding: 5px;
+}
+
+.submit-button {
+  padding: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+  border: 0px;
+  border-radius: 5px;
+  background-color: lightgray;
+}
+
+.error {
+  color: red;
+  font-size: 17px;
+}
