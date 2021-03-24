@@ -1,22 +1,30 @@
-nav, .dashboard-page {
+header, .dashboard-page {
     padding: 20px;
   }
   
-  nav {
-    background-color: lightgrey;
+  header {
+    color: white;
+    background-color:#3277b3;
   }
   
-  nav h3 {
+  header h3 {
     padding: 20px;
+    font-size: 22px;
   }
   
-  nav button {
-    padding: 5px;
+ header button {
+    padding: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    border: 0px;
+    border-radius: 5px;
+    background-color: lightgray;
   }
   
   .dashboard-page h1 {
     padding: 20px;
-    font-size: 20px;
+    font-size: 22px;
+    color: #3277b3;
   }
 
   .lists {
@@ -29,7 +37,9 @@ nav, .dashboard-page {
   .list-preview {
     margin: 20px;
     padding: 20px;
-    border: 2px solid darkgray;
+    border: 2px solid #3277b3;
+    border-radius: 2px;
+    box-shadow: 10px 5px 5px lightgray;
     flex-basis: 42%;
   }
   
@@ -42,9 +52,14 @@ nav, .dashboard-page {
     padding: 20px;
   }
   
-  .list-preview button {
+  .list-preview .button {
+    font-size: 20px;
+    font-weight: bold;
+    color: #3277b3;
+  }
+
+  .preview-item {
     padding: 5px;
-    margin: 10px;
   }
 
   .check-item {

@@ -16,11 +16,11 @@ export default class Dashboard extends Component {
 
         return(
             <div>
-                <nav>
+                <header>
                     <h3>List Manager</h3>
                     <button onClick={() => this.props.history.push('/create-list')}>Add List</button>
                     <button onClick={() => this.logout()}>Log Out</button>
-                </nav>
+                </header>
                 <section className='dashboard-page'>
                     <h1>Dashboard</h1>
                     <div className="lists">
@@ -29,17 +29,17 @@ export default class Dashboard extends Component {
                                 <h3>{list.name}</h3>
                                 {/* <p>Date Created: {list.date}</p> */}
                                {/*  <button onClick={() => this.props.history.push(`/list/${user.id}/${list.id}`)}>View</button> */}
-                                <button onClick={(e) => 
+                                <div className="button" onClick={(e) => 
                                     {
                                         e.stopPropagation()
                                         navigator.clipboard.writeText(`https://list-manager.vercel.app/list/${user.id}/${list.id}`);
                                         alert('A shareable link has been copied to your clipboard.')
                                     }
                                     
-                                }><i className="fas fa-external-link-alt"></i>Share</button>
+                                }><i className="fas fa-external-link-alt button"></i></div>
                                 <ul>
                                     {items.filter(item => item.listid === list.id).map(filteredItem => (
-                                        <li key={filteredItem.id} className={filteredItem.active ? 'check-item': null}>{filteredItem.name}</li>
+                                        <li key={filteredItem.id} className={`preview-item ${filteredItem.active ? 'check-item': null}`}>{filteredItem.name}</li>
                                     ))}
                                 </ul>
                             </div>

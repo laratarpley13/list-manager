@@ -1,26 +1,38 @@
-nav, main {
+header, section {
+    margin: 0;
+    padding: 0;
+  }
+  
+  header {
+    color: white;
+    background-color: #3277b3;
+  }
+  
+  header h3 {
     padding: 20px;
+    font-size: 22px;
   }
   
-  nav {
-    background-color: lightgrey;
-  }
-  
-  nav h3 {
-    padding: 20px;
-  }
-  
-  nav button {
-    padding: 5px;
+  header button {
+    padding: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    border: 0px;
+    border-radius: 5px;
+    background-color: lightgray;
   }
   
   .landing-page h1 {
     padding: 20px;
     font-size: 20px;
+    color: #3277b3;
   }
   
   .landing-page p {
     padding: 20px;
+    line-height: 20px;
+    margin-left: 10%;
+    margin-right: 10%;
   }
   
   .landing-page button {

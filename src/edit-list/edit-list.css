@@ -1,22 +1,37 @@
-nav, .edit-list-form {
+header, .edit-list-form {
     padding: 20px;
   }
   
-  nav {
-    background-color: lightgrey;
+  header {
+    color: white;
+    background-color:#3277b3;
   }
   
-  nav h3 {
+  header h3 {
     padding: 20px;
+    font-size: 22px;
   }
   
-  nav button {
-    padding: 5px;
+  header button {
+    padding: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    border: 0px;
+    border-radius: 5px;
+    background-color: lightgray;
   }
   
   .edit-list-form h1 {
+    color: #3277b3;
     padding: 20px;
-    font-size: 20px;
+    font-size: 22px;
+  }
+
+  form {
+    margin: 20px;
+    padding: 20px;
+    border: solid 3px #3277b3;
+    border-radius: 2px;
   }
   
   form * {
@@ -25,4 +40,20 @@ nav, .edit-list-form {
   
   form button {
     padding: 5px;
+  }
+
+  .cancel-list-edit {
+    border: 0px;
+    background-color: darkgray;
+    border-radius: 5px;
+    padding: 8px;
+    color: white;
+  }
+
+  .edit-list {
+    border: 0px;
+    background-color: #3277b3;
+    border-radius: 5px;
+    padding: 8px;
+    color: white;
   }

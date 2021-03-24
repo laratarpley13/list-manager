@@ -45,7 +45,7 @@ class App extends Component {
       user: newUser
     })
   }
-
+  
   handleAuthToken = (setToken) => {
     this.setState({token: setToken})
   }
@@ -142,7 +142,7 @@ class App extends Component {
       userid: targetList.userid
     }
 
-    fetch(`https://mighty-taiga-07413.herokuapp.com/api/${this.state.user.id}/${targetList.id}`, {
+    fetch(`https://mighty-taiga-07413.herokuapp.com/api/lists/${this.state.user.id}/${targetList.id}`, {
       method: 'PATCH',
       body: JSON.stringify(editedList),
       headers: {
@@ -172,7 +172,7 @@ class App extends Component {
     )
 
     this.setState({ lists: newLists }, () => {
-      fetch(`https://mighty-taiga-07413.herokuapp.com/api/${this.state.user.id}/${targetListId}`, {
+      fetch(`https://mighty-taiga-07413.herokuapp.com/api/lists/${this.state.user.id}/${targetListId}`, {
         method: 'DELETE',
         headers: {
           'content-type': 'application/json',
@@ -191,7 +191,7 @@ class App extends Component {
       item.id !== targetItem.id
     )
     this.setState({ items: newItems }, () => {
-      fetch(`https://mighty-taiga-07413.herokuapp.com/api/${this.state.user.id}/${targetItem.listid}/${targetItem.id}`, {
+      fetch(`https://mighty-taiga-07413.herokuapp.com/api/items/${this.state.user.id}/${targetItem.listid}/${targetItem.id}`, {
         method: 'DELETE',
         headers: {
           'authorization': `bearer ${this.state.token}`,
@@ -217,7 +217,7 @@ class App extends Component {
       edititemactive: false,
     }
 
-    fetch(`https://mighty-taiga-07413.herokuapp.com/api/${this.state.user.id}/${targetItem.listid}/${targetItem.id}`, {
+    fetch(`https://mighty-taiga-07413.herokuapp.com/api/items/${this.state.user.id}/${targetItem.listid}/${targetItem.id}`, {
       method: 'PATCH',
       body: JSON.stringify(editedItem),
       headers: {

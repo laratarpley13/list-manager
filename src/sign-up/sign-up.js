@@ -34,11 +34,11 @@ export default class SignUp extends Component {
     render() {
         return (
             <div>
-                <nav>
+                <header>
                     <h3>List Manager</h3>
                     <button onClick={() => this.props.history.push('/')}>Back</button>
                     <button onClick={() => this.props.history.push('/sign-in')}>Sign In</button>
-                </nav>
+                </header>
                 <div className='sign-up-form'>
                     <h1>Sign Up</h1>
                     <form onSubmit={this.handleSubmit}>
@@ -52,7 +52,7 @@ export default class SignUp extends Component {
                         <label htmlFor="confirm-password">Confirm Password:</label>
                         <input type="password" id="confirm-password" name="confirmPassword" />
                         <br />
-                        <button type="submit">Submit</button>
+                        <button className="submit-button" type="submit">Submit</button>
                     </form>
                 </div>
             </div>

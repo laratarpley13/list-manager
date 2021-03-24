@@ -1,33 +1,47 @@
-nav, .list-info {
+header, section {
+  margin: 0;
+  padding: 0;
+}
+
+  header {
+    color: white;
+    background-color:#3277b3;
+  }
+  
+  header h3 {
     padding: 20px;
+    font-size: 22px;
   }
   
-  nav {
-    background-color: lightgrey;
-  }
-  
-  nav h3 {
-    padding: 20px;
-  }
-  
-  nav button {
-    padding: 5px;
+  header button {
+    padding: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    border: 0px;
+    border-radius: 5px;
+    background-color: lightgray;
   }
   
   .list-info h1 {
     padding: 20px;
-    font-size: 20px;
+    font-size: 22px;
+    color: #3277b3;
   }
 
   .list-options button {
     margin: 10px;
-    padding: 5px;
+    padding: 10px;
+    border: 0px;
+    border-radius: 5px;
+    background-color: darkgray;
+    color: white;
   }
   
   form {
     margin: 20px;
     padding: 20px;
-    border: solid 2px darkgray;
+    border: solid 3px #3277b3;
+    border-radius: 2px;
   }
   
   form button {
@@ -38,26 +52,75 @@ nav, .list-info {
     margin: 10px;
   }
   
-  li {
+  .individual-item {
     margin: 10px;
-    padding: 20px;
-    border: solid 2px darkgray;
-  }
-  
-  li button {
     padding: 5px;
+    border: solid 2px darkgray;
+    border-radius: 2px;
+  }
+
+  .individual-item h4{
+    font-size: 17px;
+    margin-top: 12px;
+    margin-left: 10px;
+  }
+
+  .check-button {
+    color: #3277b3;
+    font-size: 30px;
+    text-align: left;
+  }
+
+  .uncheck-button {
+    color: #b51222;
+    font-size: 30px;
+    text-align: left;
+  }
+
+  .block-container {
+    display: flex;
+    justify-content: center;
+  }
+
+  .individual-item button {
+    background-color: white;
+    border: 0px;
+    margin: 0px;
+  }
+
+  .button {
+    font-size: 22px;
+    color: #43464a;
+    margin: 0px;
   }
   
-  li * {
+  .individual-item button {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+  
+  .individual-item * {
     margin: 5px;
+  }
+
+  .individual-item .edit-submit {
+    background-color: #3277b3;
+    padding: 9px;
+    border-radius: 5px;
+    margin-top: 5px;
+    color: white;
   }
 
   .check-item {
     text-decoration: line-through;
-    color: red;
+    color: #b51222;
   }
   
   .back-button {
     margin: 10px;
-    padding: 5px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 0px;
+    background-color: darkgray;
+    color: white;
   }

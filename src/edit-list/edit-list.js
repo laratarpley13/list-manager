@@ -19,11 +19,11 @@ export default class EditList extends Component {
 
         return (
             <div>
-                <nav>
+                <header>
                     <h3>List Manager</h3>
                     <button onClick={() => this.props.history.push(`/list/${targetListId}`)}>Cancel</button>                    
                     <button onClick={() => this.logout()}>Log Out</button>
-                </nav>
+                </header>
                 <section className='edit-list-form'>
                     <h1>Edit List</h1>
                     <form onSubmit={e => {
@@ -33,8 +33,8 @@ export default class EditList extends Component {
                         <label htmlFor="name">Name:</label>
                         <input type="text" id="name" name="name" defaultValue={targetList.name} />
                         <br />
-                        <button onClick={() => this.props.history.push('/dashboard')}>Cancel</button>
-                        <button type="submit">Submit</button>
+                        <button className="cancel-list-edit" onClick={() => this.props.history.push('/dashboard')}>Cancel</button>
+                        <button className="edit-list" type="submit">Submit</button>
                     </form>
                 </section>
             </div>

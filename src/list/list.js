@@ -185,14 +185,14 @@ export default class List extends Component {
 
         return (
             <div>
-                <nav>
+                <header>
                     <h3>List Manager</h3>
                     {(TokenService.hasAuthToken() && user.id === targetUserId)
                         ? <><button onClick={() => this.props.history.push('/dashboard')}>Dashboard</button>
                           <button onClick={() => this.logout()}>Log Out</button></>
                         : <><button onClick={() => this.props.history.push('/')}>Home</button></>
                     }
-                </nav>
+                </header>
                 <section className='list-info'>
                     <h1>{targetList.name}</h1>
                     <p>Date Created: {targetList.date.split("T")[0]}</p>
@@ -221,15 +221,17 @@ export default class List extends Component {
                     }
                     <ul className="list-items">
                         {this.state.items.filter(item => item.listid === targetListId).map(filteredItem => 
-                            <li key={filteredItem.id}>
-                                <h4 className={filteredItem.active ? 'check-item': null}>{filteredItem.name}</h4>
+                            <li className="individual-item" key={filteredItem.id}>
+                                <div className="block-container">
                                 {filteredItem.active && !filteredItem.edititemactive
-                                    ? <button onClick={() => this.checkItem(filteredItem)}><i className="fas fa-check-square"></i>Un-Check</button>
-                                    : <button onClick={() => this.checkItem(filteredItem)}><i className="fas fa-check-square"></i>Check-Off</button>
+                                    ? <div onClick={() => this.checkItem(filteredItem)}><i className="check-button fas fa-check-square"></i></div>
+                                    : <div onClick={() => this.checkItem(filteredItem)}><i className="uncheck-button fas fa-check-square"></i></div>
                                 }
+                                <h4 className={filteredItem.active ? 'check-item': null}>{filteredItem.name}</h4>
+                                </div>
                                 {(TokenService.hasAuthToken() && user.id === targetUserId && !filteredItem.edititemactive)
-                                    ? <><button onClick={() => this.toggleEdit(filteredItem)}><i className="fas fa-edit"></i>Edit</button>
-                                      <button onClick={() => this.itemDelete(filteredItem)}><i className="fas fa-trash-alt"></i>Delete</button></>
+                                    ? <><button onClick={() => this.toggleEdit(filteredItem)}><i className="button fas fa-edit"></i></button>
+                                      <button onClick={() => this.itemDelete(filteredItem)}><i className="button fas fa-trash-alt"></i></button></>
                                     : null
                                 }
                                 {filteredItem.edititemactive
@@ -237,7 +239,7 @@ export default class List extends Component {
                                             <label htmlFor="name">Name:</label>
                                             <input type="text" id="name" name="name" defaultValue={filteredItem.name} />
                                             <br />
-                                            <button type="submit">Submit</button>
+                                            <button className="edit-submit" type="submit">Submit</button>
                                         </form>
                                     :   null
                                 }

@@ -11,11 +11,11 @@ export default class CreateList extends Component {
     render() {
         return(
             <div>
-                <nav>
+                <header>
                     <h3>List Manager</h3>
                     <button onClick={() => this.props.history.push('/dashboard')}>Dashboard</button>
                     <button onClick={() => this.logout()}> Log Out</button>
-                </nav>
+                </header>
                 <section className='create-list-form'>
                 <h1>Create New List</h1>
                     <form onSubmit={e => {
@@ -25,8 +25,8 @@ export default class CreateList extends Component {
                         <label htmlFor="name">Name:</label>
                         <input type="text" id="name" name="name" required/>
                         <br />
-                        <button onClick={() => this.props.history.push('/dashboard')}>Cancel</button>
-                        <button type="submit">Submit</button>
+                        <button className="cancel-list-create" onClick={() => this.props.history.push('/dashboard')}>Cancel</button>
+                        <button className="create-list" type="submit">Submit</button>
                     </form>
                 </section>
             </div>
