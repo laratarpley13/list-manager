@@ -59,6 +59,17 @@ form * {
   border-radius: 2px;
 }
 
+@media screen and (min-width: 900px) {
+  .individual-item {
+    margin-left: 20%;
+    margin-right: 20%;
+  }
+  .add-item {
+    margin-left: 20%;
+    margin-right: 20%;
+  }
+}
+
 .individual-item h4{
   font-size: 17px;
   margin-top: 12px;

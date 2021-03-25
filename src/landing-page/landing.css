@@ -27,6 +27,12 @@ header button {
   font-size: 20px;
   color: #3277b3;
 }
+
+.landing-page h3 {
+  padding-top: 20px;
+  font-size: 16px;
+  color: #3277b3;
+}
   
 .landing-page p {
   padding: 20px;

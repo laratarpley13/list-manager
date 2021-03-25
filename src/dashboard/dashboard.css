@@ -39,7 +39,7 @@ header button {
   padding: 20px;
   border: 2px solid #3277b3;
   border-radius: 2px;
-  box-shadow: 10px 5px 5px lightgray;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.35);
   flex-basis: 42%;
 }
   

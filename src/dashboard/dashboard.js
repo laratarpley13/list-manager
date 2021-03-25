@@ -34,7 +34,7 @@ export default class Dashboard extends Component {
                                         alert('A shareable link has been copied to your clipboard.')
                                     }
                                     
-                                }><i className="fas fa-external-link-alt button"></i></div>
+                                }><i className="fas fa-share-square button"></i></div>
                                 <ul>
                                     {items.filter(item => item.listid === list.id).map(filteredItem => (
                                         <li key={filteredItem.id} className={`preview-item ${filteredItem.active ? 'check-item': null}`}>{filteredItem.name}</li>
