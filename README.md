@@ -1,70 +1,37 @@
-# Getting Started with Create React App
+# List Manager
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Link to live app: [https://list-manager.vercel.app](http://list-manager.vercel.app)
 
-## Available Scripts
+Insert Screenshots here
 
-In the project directory, you can run:
+## How it works
 
-### `npm start`
+Get a preview of all your lists in dashboard view, add/delete/edit items within individual lists, keep track of your completed items by crossing them off as you go, and share a link to a list with a friend, partner, family member to help you complete your tasks and goals.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Technologies Used
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Client: React, ReactRouter, HTML, CSS
 
-### `npm test`
+API: Node.js, Express, PostgreSQL
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### API Used
 
-### `npm run build`
+Link to API repo: [https://github.com/laratarpley13/list-manager-api.git](https://github.com/laratarpley13/list-manager-api.git)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+/lists route includes POST, GET, PATCH, and DELETE operations which are protected by authorization (except one GET route so user can share lists with others who may not have an account)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+/items route includes POST, GET, PATCH, and DELETE operations which are protected by authorization (except for one GET route and PATCH route so user can share lists with others who may not have an account and allows the sender to see when someone crosses off an item on the shared list)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+/users route includes POST operation to create a new user account and GET (requires authorization) to retrieve user info
 
-### `npm run eject`
+/auth/signin includes POST operation to sign a user into their account
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Features to include in future versions
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Create "tags" to help categorize each list (i.e. shopping-list, to-do list, wish-list, etc.)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Option to copy a list (i.e. user wants to copy a new shopping list from an older one)
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Option to print a "printer-friendly" version of list for people who like physical copies
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Option to add level of importance "tags" to items on a list
