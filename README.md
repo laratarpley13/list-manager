@@ -2,7 +2,8 @@
 
 Link to live app: [https://list-manager.vercel.app](http://list-manager.vercel.app)
 
-Insert Screenshots here
+![Alt text](https://github.com/laratarpley13/list-manager/blob/master/screenshots/dashboard-view.png)
+![Alt text](https://github.com/laratarpley13/list-manager/blob/master/screenshots/list-view.png)
 
 ## How it works
 
